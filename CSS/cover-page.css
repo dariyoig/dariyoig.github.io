@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+  }
+body {
+    background-color: #f5f5f5;
+    font-family: 'Courier', Courier, monospace;
+    text-transform: uppercase;
+}
+h1 {
+    text-align: center;
+}
+.cover-header {
+width: 500px;
+margin: 150px auto auto auto;
+font-size: large;
+color: darkgrey;
+}
+.cover-text{
+    color: rgb(175, 173, 173);
+    width: 390px;
+    margin: 100px auto auto auto;
+
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
