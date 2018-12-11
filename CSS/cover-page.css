@@ -3,24 +3,27 @@
     padding: 0;
   }
 body {
-    background-color: #f5f5f5;
-    font-family: 'Courier', Courier, monospace;
+    background-color: #efefef;
+    font-family: 'Montserrat', Courier, monospace;
     text-transform: uppercase;
+    font-size: 20px;
 }
 h1 {
     text-align: center;
 }
 .cover-header {
-width: 500px;
-margin: 150px auto auto auto;
-font-size: large;
-color: darkgrey;
+width: 600px;
+margin: 100px auto auto auto;
+color: #222222;
 }
 .cover-text{
     color: rgb(175, 173, 173);
-    width: 390px;
-    margin: 100px auto auto auto;
-
+    width: 450px;
+    margin: 70px auto auto auto;
+    border: 1px solid black;
+    border-radius: 100px 100px 100px 100px;
+    padding: 10px;
+    font-size: 18px;
 }
 a {
     text-decoration: none;
