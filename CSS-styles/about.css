@@ -1,0 +1,13 @@
+@import url("typography.css");
+@import url("navigation.css");
+
+body {
+    background: #fafafa;
+}
+header {
+    width: 100%;
+    height: 100vh;
+    background-image: url("../Resources/parallax-2.jpg");
+    background-attachment: fixed;
+    background-size: cover;
+}
