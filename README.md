@@ -1,2 +1,1 @@
-Hello, this is my very first project on GitHub
-Looking forward to seeing how this will turn out
+Hello, this website is meant to be used for exercise purposes only
