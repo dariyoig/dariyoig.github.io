@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QA Automation Portfolio</title>
+    <meta name="description" content="Minimal, modern QA Automation portfolio showcasing skills, projects, and certifications." />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script defer src="./config.js"></script>
+    <script defer src="./main.js"></script>
+    <meta name="theme-color" content="#1c1c1e" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <main id="main-content">
+      <section id="hero" class="hero">
+        <div class="hero-content wrap">
+          <img class="avatar" src="./images/avatar.png" alt="Profile photo" />
+          <h1>Dariyo Ignatov</h1>
+          <p class="subtitle">QA Automation Engineer</p>
+          <p class="intro">Focused on JavaScript, Playwright, and modern testing practices.</p>
+
+          <div id="about" class="hero-about">
+            <h2>About Me</h2>
+            <p>
+              I'm a manual QA tester transitioning to automation with JavaScript and Playwright. Passionate about delivering quality software through efficient
+              testing strategies and continuous learning.
+            </p>
+            <p>
+              With 3+ years in manual testing and 1 year learning automation, I focus on building maintainable test suites, exploring CI/CD integration, and
+              improving test coverage.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- sentinel to observe when header reaches top -->
+      <div id="nav-sentinel" aria-hidden="true"></div>
+
+      <header class="site-header" id="site-header">
+        <nav class="nav wrap" aria-label="Primary">
+          <ul class="nav-list">
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <div class="wrap">
+        <section id="skills" class="section center">
+          <h2>Skills & Technologies</h2>
+
+          <div class="subsection">
+            <h3>Tech Stack</h3>
+            <ul class="chips">
+              <li>⚙️ JavaScript</li>
+              <li>🎭 Playwright</li>
+              <li>🌿 Git & GitHub</li>
+              <li>🧪 Manual Testing</li>
+              <li>📄 HTML & CSS</li>
+              <li>🔗 API Testing</li>
+              <li>🚀 CI/CD (learning)</li>
+              <li>🐳 Docker (learning)</li>
+            </ul>
+          </div>
+
+          <div class="subsection">
+            <h3>Soft Skills</h3>
+            <ul class="chips">
+              <li>🔍 Attention to Detail</li>
+              <li>💬 Clear Communication</li>
+              <li>🤝 Team Collaboration</li>
+              <li>📊 Problem Solving</li>
+              <li>⏱️ Time Management</li>
+              <li>📚 Continuous Learning</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="projects" class="section center">
+          <h2>Projects</h2>
+          <div id="projects-list" class="grid"></div>
+        </section>
+
+        <section id="certifications" class="section center">
+          <h2>Certifications</h2>
+          <ul id="certs-list" class="list"></ul>
+        </section>
+
+        <section id="contact" class="section center">
+          <h2>Get In Touch</h2>
+          <p>Feel free to connect via email or social platforms.</p>
+          <ul class="links">
+            <li><a href="https://github.com" target="_blank" rel="noopener">🐙 GitHub</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener">💼 LinkedIn</a></li>
+            <li><a href="mailto:placeholder@example.com">📧 Email</a></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <footer class="site-footer wrap center">
+      <small>© <span id="year"></span> Jane Doe — Placeholder Portfolio</small>
+    </footer>
+
+    <div id="uc-overlay" class="uc-overlay" role="dialog" aria-modal="true" aria-labelledby="uc-title">
+      <div class="uc-card">
+        <h2 id="uc-title">🚧 Work in Progress</h2>
+        <p>This portfolio is currently under development. Content and design may change frequently.</p>
+      </div>
+    </div>
+  </body>
+</html>

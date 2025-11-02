@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Playwright Training Exercises",
+    "description": "A collection of JS + Playwright practice tasks and test suites covering locators, assertions, and page objects.",
+    "tags": ["JavaScript", "Playwright", "Testing"],
+    "url": "#",
+    "image": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=80"
+  },
+  {
+    "title": "Portfolio Website (WIP)",
+    "description": "This portfolio scaffold with dark theme, data-driven sections, and modern CSS/JS practices.",
+    "tags": ["HTML", "CSS", "Vanilla JS"],
+    "url": "#",
+    "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80"
+  },
+  {
+    "title": "Demo E2E Tests",
+    "description": "Sample automated E2E tests against a demo store (e.g., saucedemo) with CI integration.",
+    "tags": ["E2E", "Playwright", "CI/CD"],
+    "url": "#",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80"
+  },
+  {
+    "title": "API Testing Suite",
+    "description": "REST API test automation with Playwright + custom helpers for request validation and response schemas.",
+    "tags": ["API", "JavaScript", "Playwright"],
+    "url": "#",
+    "image": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=80"
+  },
+  {
+    "title": "Test Reporting Dashboard",
+    "description": "Custom HTML reports for test results with charts, failure screenshots, and execution history.",
+    "tags": ["Reporting", "HTML", "CSS"],
+    "url": "#",
+    "image": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&q=80"
+  }
+]

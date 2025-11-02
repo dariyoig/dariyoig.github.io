@@ -1,0 +1,8 @@
+[
+  { "name": "🎓 QA Fundamentals", "issuer": "Placeholder Academy", "date": "Jan 2024" },
+  { "name": "💻 JavaScript Basics", "issuer": "Placeholder Institute", "date": "Feb 2024" },
+  { "name": "🎭 Playwright Essentials", "issuer": "Placeholder Labs", "date": "Mar 2024" },
+  { "name": "🔗 API Testing with Postman", "issuer": "Placeholder Online", "date": "Apr 2024" },
+  { "name": "🚀 CI/CD Fundamentals", "issuer": "Placeholder University", "date": "May 2024" },
+  { "name": "🐳 Docker for Testers", "issuer": "Placeholder Tech", "date": "Jun 2024" }
+]
