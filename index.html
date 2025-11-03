@@ -4,51 +4,47 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>QA Automation Portfolio</title>
-    <meta name="description" content="Minimal, modern QA Automation portfolio showcasing skills, projects, and certifications." />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta
+      name="description"
+      content="QA Automation Engineer specializing in JavaScript, Playwright, and modern testing practices. View my portfolio, projects, and certifications."
+    />
     <link rel="stylesheet" href="./styles.css" />
     <script defer src="./config.js"></script>
     <script defer src="./main.js"></script>
-    <meta name="theme-color" content="#1c1c1e" />
   </head>
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <main id="main-content">
       <section id="hero" class="hero">
         <div class="hero-content wrap">
           <img class="avatar" src="./images/avatar.png" alt="Profile photo" />
           <h1>Dariyo Ignatov</h1>
-          <p class="subtitle">QA Automation Engineer</p>
-          <p class="intro">Focused on JavaScript, Playwright, and modern testing practices.</p>
+          <p class="subtitle">Software Quality Assurance Specialist</p>
 
-          <div id="about" class="hero-about">
-            <h2>About Me</h2>
-            <p>
-              I'm a manual QA tester transitioning to automation with JavaScript and Playwright. Passionate about delivering quality software through efficient
-              testing strategies and continuous learning.
-            </p>
-            <p>
-              With 3+ years in manual testing and 1 year learning automation, I focus on building maintainable test suites, exploring CI/CD integration, and
-              improving test coverage.
-            </p>
-          </div>
+          <nav class="nav-vertical" aria-label="Main navigation">
+            <ul class="nav-list-vertical">
+              <li><a href="#about">About</a></li>
+              <li><a href="#skills">Skills</a></li>
+              <li><a href="#projects">Projects</a></li>
+              <li><a href="#certifications">Certifications</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </nav>
         </div>
       </section>
 
-      <!-- sentinel to observe when header reaches top -->
-      <div id="nav-sentinel" aria-hidden="true"></div>
-
-      <header class="site-header" id="site-header">
-        <nav class="nav wrap" aria-label="Primary">
-          <ul class="nav-list">
-            <li><a href="#about">About</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#certifications">Certifications</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </nav>
-      </header>
+      <section id="about" class="section center">
+        <h2>About Me</h2>
+        <p>
+          I'm a manual QA tester transitioning to automation with JavaScript and Playwright. Passionate about delivering quality software through efficient
+          testing strategies and continuous learning.
+        </p>
+        <p>
+          With 3+ years in manual testing and 1 year learning automation, I focus on building maintainable test suites, exploring CI/CD integration, and
+          improving test coverage.
+        </p>
+      </section>
 
       <div class="wrap">
         <section id="skills" class="section center">
@@ -95,8 +91,8 @@
           <h2>Get In Touch</h2>
           <p>Feel free to connect via email or social platforms.</p>
           <ul class="links">
-            <li><a href="https://github.com" target="_blank" rel="noopener">🐙 GitHub</a></li>
-            <li><a href="https://linkedin.com" target="_blank" rel="noopener">💼 LinkedIn</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener noreferrer">🐙 GitHub</a></li>
+            <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">💼 LinkedIn</a></li>
             <li><a href="mailto:placeholder@example.com">📧 Email</a></li>
           </ul>
         </section>
@@ -104,7 +100,7 @@
     </main>
 
     <footer class="site-footer wrap center">
-      <small>© <span id="year"></span> Jane Doe — Placeholder Portfolio</small>
+      <small>&copy; <span id="year"></span> Dariyo Ignatov. All rights reserved.</small>
     </footer>
 
     <div id="uc-overlay" class="uc-overlay" role="dialog" aria-modal="true" aria-labelledby="uc-title">

@@ -1,10 +1,11 @@
+"use strict";
+
 // ============================================
 // INIT
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
   initYear();
   initOverlay();
-  initStickyHeader(); // new
   loadProjects();
   loadCerts();
 });
@@ -14,7 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
 // ============================================
 function initYear() {
   const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 }
 
 // ============================================
@@ -22,31 +25,12 @@ function initYear() {
 // ============================================
 function initOverlay() {
   const overlay = document.getElementById("uc-overlay");
-  const showOverlay = !!window.__UNDER_CONSTRUCTION__;
+  const showOverlay = window.__UNDER_CONSTRUCTION__ === true;
 
   if (overlay) {
     overlay.classList.toggle("show", showOverlay);
     document.documentElement.style.overflow = showOverlay ? "hidden" : "";
   }
-}
-
-// ============================================
-// STICKY HEADER
-// ============================================
-function initStickyHeader() {
-  const header = document.getElementById("site-header");
-  const sentinel = document.getElementById("nav-sentinel");
-  if (!header || !sentinel || !("IntersectionObserver" in window)) return;
-
-  const io = new IntersectionObserver(
-    ([entry]) => {
-      // When sentinel is out of view (scrolled past hero), header is stuck
-      header.classList.toggle("is-stuck", !entry.isIntersecting);
-    },
-    { rootMargin: "0px 0px 0px 0px", threshold: 0 }
-  );
-
-  io.observe(sentinel);
 }
 
 // ============================================
@@ -84,9 +68,9 @@ async function loadProjects() {
     const res = await fetch("./data/projects.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const items = await res.json();
-    renderProjects(mount, items && items.length ? items : FALLBACK_PROJECTS);
+    renderProjects(mount, Array.isArray(items) && items.length ? items : FALLBACK_PROJECTS);
   } catch (err) {
-    console.warn("Failed to load projects.json, using fallback:", err);
+    console.warn("Failed to load projects.json, using fallback:", err.message);
     renderProjects(mount, FALLBACK_PROJECTS);
   }
 }
@@ -97,15 +81,15 @@ function renderProjects(mount, items) {
 
 function toProjectCard(p) {
   const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
-  const link = p.url ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">View Project →</a>` : "";
+  const link = p.url ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer">View Project →</a>` : "";
   const img = p.image ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.title || "Project image")}" class="card-img" loading="lazy" />` : "";
 
   return `
-  <article class="card">
+  <article class="card" role="listitem">
     ${img}
     <h3>${escapeHtml(p.title || "Untitled Project")}</h3>
     <p>${escapeHtml(p.description || "No description available.")}</p>
-    <ul class="tags">${tags}</ul>
+    <ul class="tags" role="list">${tags}</ul>
     ${link}
   </article>`;
 }
@@ -127,9 +111,9 @@ async function loadCerts() {
     const res = await fetch("./data/certifications.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const items = await res.json();
-    renderCerts(mount, items && items.length ? items : FALLBACK_CERTS);
+    renderCerts(mount, Array.isArray(items) && items.length ? items : FALLBACK_CERTS);
   } catch (err) {
-    console.warn("Failed to load certifications.json, using fallback:", err);
+    console.warn("Failed to load certifications.json, using fallback:", err.message);
     renderCerts(mount, FALLBACK_CERTS);
   }
 }
@@ -147,7 +131,9 @@ function toCertItem(c) {
 // HELPERS
 // ============================================
 function escapeHtml(str) {
-  return String(str).replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+  const div = document.createElement("div");
+  div.textContent = String(str);
+  return div.innerHTML;
 }
 
 function escapeAttr(str) {
