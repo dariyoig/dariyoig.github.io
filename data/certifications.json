@@ -1,8 +1,23 @@
 [
-  { "name": "🎓 QA Fundamentals", "issuer": "Placeholder Academy", "date": "Jan 2024" },
-  { "name": "💻 JavaScript Basics", "issuer": "Placeholder Institute", "date": "Feb 2024" },
-  { "name": "🎭 Playwright Essentials", "issuer": "Placeholder Labs", "date": "Mar 2024" },
-  { "name": "🔗 API Testing with Postman", "issuer": "Placeholder Online", "date": "Apr 2024" },
-  { "name": "🚀 CI/CD Fundamentals", "issuer": "Placeholder University", "date": "May 2024" },
-  { "name": "🐳 Docker for Testers", "issuer": "Placeholder Tech", "date": "Jun 2024" }
+  {
+    "name": "Technology Fundamentals",
+    "issuer": "SoftUni",
+    "date": "2018",
+    "pdf": "./certs/Technology Fundamentals - September 2018 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "JS Fundamentals",
+    "issuer": "SoftUni",
+    "date": "2019",
+    "pdf": "./certs/JS Fundamentals - January 2019 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "QA Manual & Automation",
+    "issuer": "Skillo",
+    "date": "2022",
+    "pdf": "./certs/QA-Skillo.pdf",
+    "thumb": "./images/sk.png"
+  }
 ]
