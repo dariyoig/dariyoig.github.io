@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initStickyNav();
   loadProjects();
   loadCerts();
+  initBackToTop(); // add back-to-top
 });
 
 // ============================================
@@ -101,7 +102,7 @@ function initStickyNav() {
 }
 
 // ============================================
-// PROJECTS (from JSON or fallback)
+// PROJECTS (from JSON or fallback) - 2 column split
 // ============================================
 const FALLBACK_PROJECTS = [
   {
@@ -128,22 +129,31 @@ const FALLBACK_PROJECTS = [
 ];
 
 async function loadProjects() {
-  const mount = document.getElementById("projects-list");
-  if (!mount) return;
+  const mountLeft = document.getElementById("projects-list-left");
+  const mountRight = document.getElementById("projects-list-right");
+  if (!mountLeft || !mountRight) return;
 
   try {
     const res = await fetch("./data/projects.json");
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const items = await res.json();
-    renderProjects(mount, Array.isArray(items) && items.length ? items : FALLBACK_PROJECTS);
+    let items = await res.json();
+    if (!Array.isArray(items) || !items.length) items = FALLBACK_PROJECTS;
+    if (items.length % 2 === 1) items = items.slice(0, -1); // drop last to make even
+    renderProjects(mountLeft, mountRight, items);
   } catch (err) {
     console.warn("Failed to load projects.json, using fallback:", err.message);
-    renderProjects(mount, FALLBACK_PROJECTS);
+    let items = FALLBACK_PROJECTS.slice();
+    if (items.length % 2 === 1) items = items.slice(0, -1);
+    renderProjects(mountLeft, mountRight, items);
   }
 }
 
-function renderProjects(mount, items) {
-  mount.innerHTML = items.map(toProjectCard).join("");
+function renderProjects(mountLeft, mountRight, items) {
+  const leftItems = items.filter((_, i) => i % 2 === 0); // even indices (0, 2, 4...)
+  const rightItems = items.filter((_, i) => i % 2 === 1); // odd indices (1, 3, 5...)
+
+  mountLeft.innerHTML = leftItems.map(toProjectCard).join("");
+  mountRight.innerHTML = rightItems.map(toProjectCard).join("");
 }
 
 function toProjectCard(p) {
@@ -192,6 +202,53 @@ function renderCerts(mount, items) {
 function toCertItem(c) {
   const date = c.date ? ` — ${escapeHtml(c.date)}` : "";
   return `<li><strong>${escapeHtml(c.name || "Certificate")}</strong> · ${escapeHtml(c.issuer || "Issuer")}${date}</li>`;
+}
+
+// ============================================
+// BACK TO TOP BUTTON
+// ============================================
+function initBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  const threshold = 400;
+  let shown = false;
+
+  function update() {
+    const y = window.pageYOffset || document.documentElement.scrollTop;
+    if (y > threshold && !shown) {
+      btn.classList.add("show");
+      shown = true;
+    } else if (y <= threshold && shown) {
+      btn.classList.remove("show");
+      shown = false;
+    }
+  }
+
+  // throttle with rAF
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        update();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      window.scrollTo(0, 0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  // initial state
+  update();
 }
 
 // ============================================
