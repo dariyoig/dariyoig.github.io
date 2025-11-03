@@ -90,11 +90,94 @@ a:focus-visible {
 }
 
 /* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 20px;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-gradient), url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1920&q=80") center/cover;
+  filter: grayscale(1) brightness(0.78) contrast(1.12); /* full grayscale - no color tints */
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin-top: -10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 0;
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* още по-smooth, butter-like easing */
+}
+
+.avatar {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  border: 3px solid var(--accent); /* light gray border */
+  margin: 0 auto 20px;
+  object-fit: cover;
+  object-position: center 30%;
+  filter: brightness(0.76) contrast(1.05);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+}
+
+.hero h1 {
+  margin: 0 0 12px;
+  font-size: 42px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: #e8e8e8; /* по-сив */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+}
+
+.subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--accent); /* light gray */
+  margin: 0 0 56px;
+  letter-spacing: 0.03em;
+  filter: brightness(1.05);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+}
+
+/* ============================================
    VERTICAL NAVIGATION (in hero)
    ============================================ */
 .nav-vertical {
   margin: 48px auto 0;
   max-width: 280px;
+  transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease 0.3s backwards; /* fade-in анимация с 0.3s delay */
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .nav-list-vertical {
@@ -157,64 +240,119 @@ a:focus-visible {
 }
 
 /* ============================================
-   HERO SECTION
+   HORIZONTAL STICKY NAVBAR (on scroll)
    ============================================ */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px 20px;
-  overflow: hidden;
+.nav-vertical.sticky {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  max-width: none;
+  padding: 6px 0;
+  background: #1a1a1a; /* solid color вместо rgba за да няма blur issues */
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 2px solid #606060;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  animation: slideDown 0.4s ease;
+  /* Ensure no filters apply to text */
+  filter: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-.hero::before {
+/* Placeholder to preserve space when navbar becomes sticky */
+.nav-vertical.sticky::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  background: var(--hero-gradient), url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1920&q=80") center/cover;
-  filter: grayscale(1) brightness(0.78) contrast(1.12); /* full grayscale - no color tints */
-  z-index: 0;
+  display: block;
+  height: 0; /* не заема място, само предотвратява shift */
 }
 
-.hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
-  margin-top: -10vh;
+/* Slide down when appearing */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
-.avatar {
-  width: 115px;
-  height: 115px;
-  border-radius: 50%;
-  border: 3px solid var(--accent); /* light gray border */
-  margin: 0 auto 20px;
-  object-fit: cover;
-  object-position: center 30%;
-  filter: brightness(0.76) contrast(1.05);
+/* Slide up when hiding */
+.nav-vertical.sticky.hiding {
+  animation: slideUp 0.4s ease forwards;
 }
 
-.hero h1 {
-  margin: 0 0 12px;
-  font-size: 42px;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  color: #e8e8e8; /* по-сив */
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
 }
 
-.subtitle {
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--accent); /* light gray */
-  margin: 0 0 56px;
-  letter-spacing: 0.03em;
-  filter: brightness(1.05);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+.nav-vertical.sticky .nav-list-vertical {
+  flex-direction: row;
+  justify-content: center;
+  gap: 40px;
+  padding: 0 20px;
+}
+
+.nav-vertical.sticky .nav-list-vertical li {
+  border-bottom: none;
+  padding: 0;
+}
+
+.nav-vertical.sticky .nav-list-vertical a {
+  padding: 4px 16px; /* ДРАСТИЧНО намален от 5px */
+  margin: 0;
+  font-size: 14px; /* намален от 15px за компактност */
+  /* Ensure crisp text rendering */
+  text-shadow: none;
+  filter: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.nav-vertical.sticky .nav-list-vertical a::after {
+  bottom: 4px;
+}
+
+/* Responsive: stack vertically on small screens even when sticky */
+@media (max-width: 640px) {
+  .nav-vertical.sticky .nav-list-vertical {
+    flex-direction: row; /* запазва хоризонтално подреждане */
+    gap: 16px; /* намален от 40px за повече място */
+    flex-wrap: wrap; /* позволява wrap ако няма място */
+    justify-content: center;
+  }
+  .nav-vertical.sticky {
+    padding: 5px 0;
+  }
+  .nav-vertical.sticky .nav-list-vertical a {
+    padding: 4px 8px; /* намален horizontal padding от 16px */
+    font-size: 13px; /* намален от 14px */
+  }
+}
+
+/* Extra small screens: further reduce */
+@media (max-width: 400px) {
+  .nav-vertical.sticky .nav-list-vertical {
+    gap: 12px; /* още по-малък gap */
+  }
+  .nav-vertical.sticky .nav-list-vertical a {
+    padding: 4px 6px; /* минимален padding */
+    font-size: 12px; /* още по-малък */
+  }
 }
 
 /* ============================================
@@ -467,6 +605,7 @@ a:focus-visible {
   }
   .hero-content {
     margin-top: -8vh;
+    min-height: 75vh;
   }
   .hero h1 {
     font-size: 36px;
@@ -497,6 +636,7 @@ a:focus-visible {
   }
   .hero-content {
     margin-top: -6vh;
+    min-height: 70vh;
   }
   .hero h1 {
     font-size: 32px;

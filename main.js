@@ -6,6 +6,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   initYear();
   initOverlay();
+  initStickyNav();
   loadProjects();
   loadCerts();
 });
@@ -31,6 +32,72 @@ function initOverlay() {
     overlay.classList.toggle("show", showOverlay);
     document.documentElement.style.overflow = showOverlay ? "hidden" : "";
   }
+}
+
+// ============================================
+// STICKY NAVBAR (transforms on scroll)
+// ============================================
+function initStickyNav() {
+  const nav = document.getElementById("main-nav");
+  const hero = document.getElementById("hero");
+
+  if (!nav || !hero) return;
+
+  const heroHeight = hero.offsetHeight;
+  let isSticky = false;
+  let placeholder = null;
+
+  function handleScroll() {
+    const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollY >= heroHeight - 100 && !isSticky) {
+      // Create placeholder with smooth height transition
+      placeholder = document.createElement("div");
+      placeholder.style.height = "0px";
+      placeholder.style.visibility = "hidden";
+      placeholder.style.transition = "height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)"; /* butter-smooth */
+      placeholder.style.overflow = "hidden";
+      nav.parentNode.insertBefore(placeholder, nav);
+
+      // Trigger reflow and animate height
+      setTimeout(() => {
+        placeholder.style.height = nav.offsetHeight + "px";
+      }, 10);
+
+      nav.classList.remove("hiding");
+      nav.classList.add("sticky");
+      isSticky = true;
+    } else if (scrollY < heroHeight - 100 && isSticky) {
+      // Animate placeholder height to 0 before removing
+      if (placeholder && placeholder.parentNode) {
+        placeholder.style.height = "0px";
+        setTimeout(() => {
+          if (placeholder && placeholder.parentNode) {
+            placeholder.parentNode.removeChild(placeholder);
+            placeholder = null;
+          }
+        }, 800); /* match увеличеното време */
+      }
+
+      nav.classList.add("hiding");
+      setTimeout(() => {
+        nav.classList.remove("sticky", "hiding");
+      }, 800); /* match увеличеното време */
+      isSticky = false;
+    }
+  }
+
+  // Throttle scroll event for performance
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleScroll();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
 }
 
 // ============================================
