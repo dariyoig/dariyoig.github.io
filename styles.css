@@ -12,6 +12,7 @@
   --accent: #5a9cc8;
   --radius: 12px;
   --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  --hero-gradient: radial-gradient(ellipse at center, rgba(12, 12, 17, 0.4) 0%, rgba(18, 18, 23, 0.4) 100%);
 }
 
 /* ============================================
@@ -38,7 +39,6 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-shadow: 0 0 1.5px rgba(245, 245, 247, 0.4);
   letter-spacing: 0.02em;
 }
 
@@ -164,12 +164,18 @@ a:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, rgba(3, 3, 8, 0.95) 0%, rgba(5, 5, 10, 0.72) 40%, rgba(10, 10, 15, 0.48) 60%, transparent 80%),
-    radial-gradient(ellipse at center, rgba(12, 12, 17, 0.6) 0%, rgba(18, 18, 23, 0.6) 100%),
-    url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1920&q=80") center/cover; /* ФИКСВАНО: cover вместо contain */
   text-align: center;
   padding: 80px 20px;
-  filter: hue-rotate(-35deg) saturate(1.5) brightness(0.8);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-gradient), url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1920&q=80") center/cover;
+  filter: grayscale(1) brightness(0.78) contrast(1.12); /* full grayscale - no color tints */
+  z-index: 0;
 }
 
 .hero-content {
@@ -177,18 +183,17 @@ a:focus-visible {
   z-index: 1;
   max-width: 720px;
   margin-top: -10vh;
-  filter: hue-rotate(35deg) saturate(0.67) brightness(1.14);
 }
 
 .avatar {
   width: 115px;
   height: 115px;
   border-radius: 50%;
-  border: 3px solid #5a9cc8; /* ФИКСВАНО: използвам директно hex вместо var */
+  border: 3px solid var(--accent);
   margin: 0 auto 20px;
   object-fit: cover;
   object-position: center 30%;
-  filter: brightness(0.82) contrast(1.08) saturate(0.85) blur(0.3px);
+  filter: brightness(0.76) contrast(1.05);
 }
 
 .hero h1 {
@@ -197,6 +202,8 @@ a:focus-visible {
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.025em;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
@@ -205,6 +212,8 @@ a:focus-visible {
   color: var(--accent);
   margin: 0 0 56px;
   letter-spacing: 0.03em;
+  filter: brightness(1.05);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 }
 
 /* ============================================
@@ -334,6 +343,7 @@ a:focus-visible {
   text-decoration: none;
   font-weight: 500;
   font-size: 14px;
+  transition: color 0.2s ease;
 }
 
 .card a:hover {
@@ -419,6 +429,7 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.85);
+  -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
   z-index: 999;
 }
@@ -449,14 +460,18 @@ a:focus-visible {
    RESPONSIVE
    ============================================ */
 @media (max-width: 640px) {
+  .hero {
+    padding: 64px 20px;
+  }
+  .hero-content {
+    margin-top: -8vh;
+  }
   .hero h1 {
     font-size: 36px;
   }
   .subtitle {
     font-size: 16px;
-  }
-  .hero-about {
-    padding: 18px;
+    margin-bottom: 48px;
   }
   .section {
     padding: 18px;
@@ -476,10 +491,17 @@ a:focus-visible {
     padding-right: 12px;
   }
   .hero {
-    padding: 64px 12px;
+    padding: 56px 12px;
+  }
+  .hero-content {
+    margin-top: -6vh;
   }
   .hero h1 {
     font-size: 32px;
+  }
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 40px;
   }
   .section {
     padding: 16px;
@@ -490,17 +512,19 @@ a:focus-visible {
   .nav-list-vertical li {
     padding: 0 50px;
   }
+  .nav-vertical {
+    margin-top: 40px;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    transition: none !important;
-    animation: none !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
   .card:hover {
-    transform: none !important;
-    box-shadow: none !important;
+    transform: none;
   }
 }
