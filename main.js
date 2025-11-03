@@ -7,19 +7,41 @@ document.addEventListener("DOMContentLoaded", () => {
   initYear();
   initOverlay();
   initStickyNav();
+  syncHeroNavHeight();
+  initBackToTop();
   loadProjects();
   loadCerts();
-  initBackToTop(); // add back-to-top
+
+  window.addEventListener("resize", debounce(syncHeroNavHeight, 150));
 });
+
+// ============================================
+// HELPERS
+// ============================================
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = String(str || "");
+  return div.innerHTML;
+}
+
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, "&quot;");
+}
+
+function debounce(fn, wait) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
 
 // ============================================
 // YEAR (Footer)
 // ============================================
 function initYear() {
   const yearEl = document.getElementById("year");
-  if (yearEl) {
-    yearEl.textContent = new Date().getFullYear();
-  }
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
 // ============================================
@@ -28,7 +50,6 @@ function initYear() {
 function initOverlay() {
   const overlay = document.getElementById("uc-overlay");
   const showOverlay = window.__UNDER_CONSTRUCTION__ === true;
-
   if (overlay) {
     overlay.classList.toggle("show", showOverlay);
     document.documentElement.style.overflow = showOverlay ? "hidden" : "";
@@ -36,176 +57,57 @@ function initOverlay() {
 }
 
 // ============================================
-// STICKY NAVBAR (transforms on scroll)
+// STICKY NAVBAR (overlay)
 // ============================================
 function initStickyNav() {
-  const nav = document.getElementById("main-nav");
   const hero = document.getElementById("hero");
+  const overlay = document.getElementById("nav-overlay");
 
-  if (!nav || !hero) return;
+  if (!hero || !overlay) return;
 
-  const heroHeight = hero.offsetHeight;
-  let isSticky = false;
-  let placeholder = null;
+  let shown = false;
 
-  function handleScroll() {
+  function update() {
+    const heroBottom = hero.offsetTop + hero.offsetHeight;
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const threshold = heroBottom - 120;
 
-    if (scrollY >= heroHeight - 100 && !isSticky) {
-      // Create placeholder with smooth height transition
-      placeholder = document.createElement("div");
-      placeholder.style.height = "0px";
-      placeholder.style.visibility = "hidden";
-      placeholder.style.transition = "height 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)"; /* butter-smooth */
-      placeholder.style.overflow = "hidden";
-      nav.parentNode.insertBefore(placeholder, nav);
-
-      // Trigger reflow and animate height
-      setTimeout(() => {
-        placeholder.style.height = nav.offsetHeight + "px";
-      }, 10);
-
-      nav.classList.remove("hiding");
-      nav.classList.add("sticky");
-      isSticky = true;
-    } else if (scrollY < heroHeight - 100 && isSticky) {
-      // Animate placeholder height to 0 before removing
-      if (placeholder && placeholder.parentNode) {
-        placeholder.style.height = "0px";
-        setTimeout(() => {
-          if (placeholder && placeholder.parentNode) {
-            placeholder.parentNode.removeChild(placeholder);
-            placeholder = null;
-          }
-        }, 800); /* match увеличеното време */
-      }
-
-      nav.classList.add("hiding");
-      setTimeout(() => {
-        nav.classList.remove("sticky", "hiding");
-      }, 800); /* match увеличеното време */
-      isSticky = false;
+    if (scrollY >= threshold && !shown) {
+      overlay.classList.add("show");
+      shown = true;
+    } else if (scrollY < threshold && shown) {
+      overlay.classList.remove("show");
+      shown = false;
     }
   }
 
-  // Throttle scroll event for performance
   let ticking = false;
   window.addEventListener("scroll", () => {
     if (!ticking) {
-      window.requestAnimationFrame(() => {
-        handleScroll();
+      requestAnimationFrame(() => {
+        update();
         ticking = false;
       });
       ticking = true;
     }
   });
+
+  window.addEventListener("resize", debounce(update, 150));
+  update();
 }
 
 // ============================================
-// PROJECTS (from JSON or fallback) - 2 column split
+// HERO NAV HEIGHT SYNC
 // ============================================
-const FALLBACK_PROJECTS = [
-  {
-    title: "Playwright Training Exercises",
-    description: "Practice tasks covering locators, assertions, and page objects.",
-    tags: ["JavaScript", "Playwright", "Testing"],
-    url: "#",
-    image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=80&auto=format&fit=crop",
-  },
-  {
-    title: "Portfolio Website (WIP)",
-    description: "Dark, minimal portfolio with data-driven sections.",
-    tags: ["HTML", "CSS", "Vanilla JS"],
-    url: "#",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80&auto=format&fit=crop",
-  },
-  {
-    title: "Demo E2E Tests",
-    description: "Automated tests for a demo store with CI integration.",
-    tags: ["E2E", "Playwright", "CI/CD"],
-    url: "#",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=80&auto=format&fit=crop",
-  },
-];
-
-async function loadProjects() {
-  const mountLeft = document.getElementById("projects-list-left");
-  const mountRight = document.getElementById("projects-list-right");
-  if (!mountLeft || !mountRight) return;
-
-  try {
-    const res = await fetch("./data/projects.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    let items = await res.json();
-    if (!Array.isArray(items) || !items.length) items = FALLBACK_PROJECTS;
-    if (items.length % 2 === 1) items = items.slice(0, -1); // drop last to make even
-    renderProjects(mountLeft, mountRight, items);
-  } catch (err) {
-    console.warn("Failed to load projects.json, using fallback:", err.message);
-    let items = FALLBACK_PROJECTS.slice();
-    if (items.length % 2 === 1) items = items.slice(0, -1);
-    renderProjects(mountLeft, mountRight, items);
-  }
-}
-
-function renderProjects(mountLeft, mountRight, items) {
-  const leftItems = items.filter((_, i) => i % 2 === 0); // even indices (0, 2, 4...)
-  const rightItems = items.filter((_, i) => i % 2 === 1); // odd indices (1, 3, 5...)
-
-  mountLeft.innerHTML = leftItems.map(toProjectCard).join("");
-  mountRight.innerHTML = rightItems.map(toProjectCard).join("");
-}
-
-function toProjectCard(p) {
-  const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
-  const link = p.url ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer">View Project →</a>` : "";
-  const img = p.image ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.title || "Project image")}" class="card-img" loading="lazy" />` : "";
-
-  return `
-  <article class="card" role="listitem">
-    ${img}
-    <h3>${escapeHtml(p.title || "Untitled Project")}</h3>
-    <p>${escapeHtml(p.description || "No description available.")}</p>
-    <ul class="tags" role="list">${tags}</ul>
-    ${link}
-  </article>`;
+function syncHeroNavHeight() {
+  const nav = document.getElementById("main-nav");
+  if (!nav) return;
+  const h = nav.offsetHeight || 220;
+  document.documentElement.style.setProperty("--hero-nav-h", `${h}px`);
 }
 
 // ============================================
-// CERTIFICATIONS (from JSON or fallback)
-// ============================================
-const FALLBACK_CERTS = [
-  { name: "🎓 QA Fundamentals", issuer: "Placeholder Academy", date: "Jan 2024" },
-  { name: "💻 JavaScript Basics", issuer: "Placeholder Institute", date: "Feb 2024" },
-  { name: "🎭 Playwright Essentials", issuer: "Placeholder Labs", date: "Mar 2024" },
-];
-
-async function loadCerts() {
-  const mount = document.getElementById("certs-list");
-  if (!mount) return;
-
-  try {
-    const res = await fetch("./data/certifications.json");
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const items = await res.json();
-    renderCerts(mount, Array.isArray(items) && items.length ? items : FALLBACK_CERTS);
-  } catch (err) {
-    console.warn("Failed to load certifications.json, using fallback:", err.message);
-    renderCerts(mount, FALLBACK_CERTS);
-  }
-}
-
-function renderCerts(mount, items) {
-  mount.innerHTML = items.map(toCertItem).join("");
-}
-
-function toCertItem(c) {
-  const date = c.date ? ` — ${escapeHtml(c.date)}` : "";
-  return `<li><strong>${escapeHtml(c.name || "Certificate")}</strong> · ${escapeHtml(c.issuer || "Issuer")}${date}</li>`;
-}
-
-// ============================================
-// BACK TO TOP BUTTON
+// BACK TO TOP
 // ============================================
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
@@ -225,7 +127,6 @@ function initBackToTop() {
     }
   }
 
-  // throttle with rAF
   let ticking = false;
   window.addEventListener("scroll", () => {
     if (!ticking) {
@@ -240,26 +141,152 @@ function initBackToTop() {
   btn.addEventListener("click", (e) => {
     e.preventDefault();
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      window.scrollTo(0, 0);
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    window.scrollTo(reduce ? { top: 0 } : { top: 0, behavior: "smooth" });
   });
 
-  // initial state
   update();
 }
 
 // ============================================
-// HELPERS
+// PROJECTS
 // ============================================
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = String(str);
-  return div.innerHTML;
+const FALLBACK_PROJECTS = [
+  {
+    title: "QA Portfolio Website",
+    description: "Modern portfolio showcasing QA skills, projects, and certifications.",
+    tags: ["HTML", "CSS", "JavaScript"],
+    url: "https://dariyoig.github.io",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80&auto=format&fit=crop",
+  },
+  {
+    title: "Playwright Test Suite",
+    description: "E2E automated testing framework with Page Object Model.",
+    tags: ["JavaScript", "Playwright", "Testing"],
+    url: "#",
+    image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=80&auto=format&fit=crop",
+  },
+];
+
+async function loadProjects() {
+  const mountLeft = document.getElementById("projects-list-left");
+  const mountRight = document.getElementById("projects-list-right");
+  if (!mountLeft || !mountRight) return;
+
+  try {
+    const res = await fetch("./data/projects.json");
+    let items = res.ok ? await res.json() : FALLBACK_PROJECTS;
+    if (!Array.isArray(items) || !items.length) items = FALLBACK_PROJECTS;
+    if (items.length % 2 === 1) items = items.slice(0, -1);
+    renderProjects(mountLeft, mountRight, items);
+  } catch {
+    renderProjects(mountLeft, mountRight, FALLBACK_PROJECTS);
+  }
 }
 
-function escapeAttr(str) {
-  return escapeHtml(str);
+function renderProjects(mountLeft, mountRight, items) {
+  const leftItems = items.filter((_, i) => i % 2 === 0);
+  const rightItems = items.filter((_, i) => i % 2 === 1);
+  mountLeft.innerHTML = leftItems.map(toProjectCard).join("");
+  mountRight.innerHTML = rightItems.map(toProjectCard).join("");
+}
+
+function toProjectCard(p) {
+  const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
+  const link = p.url
+    ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHtml(p.title || "project")}">View Project →</a>`
+    : "";
+  const img = p.image ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.title || "Project")}" class="card-img" loading="lazy" />` : "";
+
+  return `
+  <article class="card" role="listitem">
+    ${img}
+    <h3>${escapeHtml(p.title || "Untitled Project")}</h3>
+    <p>${escapeHtml(p.description || "No description available.")}</p>
+    <ul class="tags" role="list">${tags}</ul>
+    ${link}
+  </article>`;
+}
+
+// ============================================
+// CERTIFICATIONS
+// ============================================
+async function loadCerts() {
+  const mount = document.getElementById("certs-list");
+  const viewer = document.getElementById("cert-pdf-viewer");
+  const placeholder = document.getElementById("pdf-viewer-placeholder");
+
+  if (!mount) return;
+
+  try {
+    const res = await fetch("./data/certifications.json");
+    const items = res.ok ? await res.json() : [];
+
+    if (Array.isArray(items) && items.length) {
+      renderCerts(mount, items, viewer, placeholder);
+
+      const firstCert = items[0];
+      if (firstCert?.pdf && viewer && placeholder) {
+        loadCertPdf(firstCert.pdf, viewer, placeholder);
+        mount.querySelector(".cert-item")?.classList.add("active");
+      }
+    } else {
+      mount.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No certifications available yet.</li>';
+    }
+  } catch {
+    mount.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load certifications.</li>';
+  }
+}
+
+function toCertCard(c) {
+  const title = escapeHtml(c.name || "Certificate");
+  const issuer = escapeHtml(c.issuer || "Issuer");
+  const date = c.date ? ` · ${escapeHtml(c.date)}` : "";
+  const thumb = c.thumb || "";
+
+  return `
+    <li class="cert-item">
+      <div class="cert-left">
+        <div class="cert-thumb">
+          ${thumb ? `<img src="${escapeAttr(thumb)}" alt="${title} thumbnail" loading="lazy" />` : ""}
+        </div>
+        <div class="cert-body">
+          <h4>${title} · ${issuer}${date}</h4>
+        </div>
+      </div>
+      <div class="cert-arrow" aria-hidden="true">→</div>
+    </li>`;
+}
+
+function renderCerts(mount, items, viewer, placeholder) {
+  mount.innerHTML = items.map(toCertCard).join("");
+
+  mount.querySelectorAll(".cert-item").forEach((item, idx) => {
+    const pdf = items[idx]?.pdf;
+    item.setAttribute("role", "button");
+    item.setAttribute("tabindex", "0");
+    item.setAttribute("aria-label", `View ${items[idx]?.name || "certificate"}`);
+
+    const handleClick = () => {
+      mount.querySelectorAll(".cert-item").forEach((i) => i.classList.remove("active"));
+      item.classList.add("active");
+      if (pdf && viewer && placeholder) {
+        loadCertPdf(pdf, viewer, placeholder);
+      }
+    };
+
+    item.addEventListener("click", handleClick);
+    item.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        handleClick();
+      }
+    });
+  });
+}
+
+function loadCertPdf(url, viewer, placeholder) {
+  if (!viewer || !placeholder) return;
+  viewer.src = url;
+  viewer.classList.add("active");
+  placeholder.classList.add("hidden");
 }

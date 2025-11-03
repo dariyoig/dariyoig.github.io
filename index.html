@@ -3,24 +3,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>QA Automation Portfolio</title>
+    <title>Dariyo Ignatov | QA Engineer Portfolio</title>
     <meta
       name="description"
-      content="QA Automation Engineer specializing in JavaScript, Playwright, and modern testing practices. View my portfolio, projects, and certifications."
+      content="QA Engineer with 3.6 years of experience in manual testing, transitioning to automation. Specializing in JavaScript, Playwright, and modern testing practices."
     />
+    <meta name="author" content="Dariyo Ignatov" />
 
-    <!-- Open Graph / Social Media Preview (text only, no image) -->
+    <!-- Open Graph (no images to avoid fallback issues) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dariyoig.github.io/" />
-    <meta property="og:title" content="Dariyo Ignatov | Software Quality Assurance Specialist" />
-    <meta property="og:description" content="QA Automation portfolio showcasing skills, projects, and certifications." />
-    <!-- og:image meta tags removed -->
+    <meta property="og:title" content="Dariyo Ignatov | QA Engineer Portfolio" />
+    <meta property="og:description" content="QA Engineer portfolio showcasing skills, projects, and certifications." />
 
-    <!-- Twitter Card (text only) -->
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Dariyo Ignatov | Software Quality Assurance Specialist" />
-    <meta name="twitter:description" content="QA Automation portfolio showcasing skills, projects, and certifications." />
-    <!-- twitter:image removed -->
+    <meta name="twitter:title" content="Dariyo Ignatov | QA Engineer Portfolio" />
+    <meta name="twitter:description" content="QA Engineer portfolio showcasing skills, projects, and certifications." />
 
     <link rel="stylesheet" href="./styles.css" />
     <script defer src="./config.js"></script>
@@ -55,16 +53,18 @@
             <div class="column">
               <h3>About me</h3>
               <p>
-                I'm a manual QA tester transitioning to automation with JavaScript and Playwright. Passionate about delivering quality software through
-                efficient testing strategies and continuous learning.
+                QA Engineer with 3.6 years of experience in manual testing, currently transitioning to automation. I approach quality assurance with a
+                methodical mindset—thorough, detail-oriented, and driven by delivering reliable results. My motivation comes from building robust test coverage
+                and contributing to product stability through systematic, data-driven testing practices.
               </p>
             </div>
             <div class="column-divider"></div>
             <div class="column">
-              <h3>Random facts about me</h3>
+              <h3>Work philosophy</h3>
               <p>
-                With 3+ years in manual testing and 1 year learning automation, I focus on building maintainable test suites, exploring CI/CD integration, and
-                improving test coverage.
+                I value consistency, accountability, and continuous improvement. Whether it's manual regression testing or building automated test suites, I
+                focus on sustainable workflows and long-term maintainability. Outside of work, I stay balanced through fitness, reading, and exploring new
+                technologies—always learning, always evolving.
               </p>
             </div>
           </div>
@@ -77,14 +77,14 @@
               <div class="subsection">
                 <h3>Technologies</h3>
                 <ul class="chips">
+                  <li>🧪 Manual Testing</li>
                   <li>⚙️ JavaScript</li>
                   <li>🎭 Playwright</li>
+                  <li>🗄️ SQL</li>
                   <li>🌿 Git & GitHub</li>
-                  <li>🧪 Manual Testing</li>
                   <li>📄 HTML & CSS</li>
-                  <li>🔗 API Testing</li>
+                  <li>🔗 API Testing (learning)</li>
                   <li>🚀 CI/CD (learning)</li>
-                  <li>🐳 Docker (learning)</li>
                 </ul>
               </div>
             </div>
@@ -94,11 +94,11 @@
                 <h3>Soft skills</h3>
                 <ul class="chips">
                   <li>🔍 Attention to Detail</li>
-                  <li>💬 Clear Communication</li>
+                  <li>📊 Analytical Thinking</li>
+                  <li>🎯 Goal-Oriented</li>
+                  <li>⏱️ Reliable & Consistent</li>
                   <li>🤝 Team Collaboration</li>
-                  <li>📊 Problem Solving</li>
-                  <li>⏱️ Time Management</li>
-                  <li>📚 Continuous Learning</li>
+                  <li>📚 Self-Motivated Learner</li>
                 </ul>
               </div>
             </div>
@@ -126,7 +126,12 @@
             </div>
             <div class="column-divider"></div>
             <div class="column">
-              <p class="text-muted">PDF viewer coming soon...</p>
+              <div class="pdf-viewer-container">
+                <div id="pdf-viewer-placeholder" class="pdf-viewer-placeholder">
+                  <p>Select a certificate to preview</p>
+                </div>
+                <iframe id="cert-pdf-viewer" class="cert-pdf-viewer" title="Certificate preview"></iframe>
+              </div>
             </div>
           </div>
         </section>
@@ -135,10 +140,15 @@
           <h2>Get In Touch</h2>
           <div class="two-column centered">
             <div class="column">
-              <form class="contact-form">
-                <input type="text" placeholder="Your Name" required />
-                <input type="email" placeholder="Your Email" required />
-                <textarea placeholder="Your Message" rows="4" required></textarea>
+              <form class="contact-form" action="https://formsubmit.co/dariyo.ignatov@icloud.com" method="POST">
+                <!-- FormSubmit hidden fields -->
+                <input type="hidden" name="_subject" value="New contact from dariyoig.github.io" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+
+                <input type="text" name="name" placeholder="Your Name" required />
+                <input type="email" name="email" placeholder="Your Email" required />
+                <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
                 <button type="submit">Send Message</button>
               </form>
             </div>
@@ -146,7 +156,7 @@
             <div class="column">
               <ul class="social-icons">
                 <li>
-                  <a class="icon-link" href="https://github.com" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
+                  <a class="icon-link" href="https://github.com/dariyoig" target="_blank" aria-label="GitHub" rel="noopener noreferrer">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path
                         d="M12 .5a12 12 0 0 0-3.79 23.4c.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.35-1.77-1.35-1.77-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.26 1.86 1.26 1.08 1.85 2.84 1.32 3.53 1.01.11-.79.42-1.32.76-1.62-2.66-.3-5.47-1.33-5.47-5.9 0-1.3.47-2.37 1.24-3.21-.13-.3-.54-1.52.12-3.17 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.65.25 2.87.12 3.17.77.84 1.24 1.9 1.24 3.21 0 4.59-2.81 5.6-5.49 5.9.43.37.81 1.1.81 2.22v3.29c0 .32.21.7.83.58A12 12 0 0 0 12 .5z"
@@ -156,7 +166,13 @@
                   </a>
                 </li>
                 <li>
-                  <a class="icon-link" href="https://linkedin.com" target="_blank" aria-label="LinkedIn" rel="noopener noreferrer">
+                  <a
+                    class="icon-link"
+                    href="https://www.linkedin.com/in/dariyo-ignatov-38973a178/"
+                    target="_blank"
+                    aria-label="LinkedIn"
+                    rel="noopener noreferrer"
+                  >
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path
                         d="M4.98 3.5C4.98 4.88 3.86 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7 0h3.8v2.2h.1c.5-1 1.8-2.2 3.8-2.2 4.1 0 4.9 2.7 4.9 6.2V24h-4v-7.1c0-1.7 0-3.9-2.4-3.9s-2.8 1.8-2.8 3.8V24h-4V8z"
@@ -166,7 +182,7 @@
                   </a>
                 </li>
                 <li>
-                  <a class="icon-link" href="mailto:placeholder@example.com" aria-label="Email">
+                  <a class="icon-link" href="mailto:dariyo.ignatov@icloud.com" aria-label="Email">
                     <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                       <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
                     </svg>
@@ -184,8 +200,19 @@
       <small>&copy; <span id="year"></span> Dariyo Ignatov. All rights reserved.</small>
     </footer>
 
-    <!-- Back to top -->
-    <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <!-- Horizontal overlay navbar (appears on scroll) -->
+    <nav id="nav-overlay" class="nav-overlay" aria-label="Main navigation (overlay)">
+      <ul class="nav-overlay-list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#certifications">Certifications</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- Back to top button -->
+    <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
       <!-- simple chevron-up icon -->
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 7.5l7 7-1.5 1.5L12 10.5 6.5 16 5 14.5l7-7z" />
@@ -194,6 +221,8 @@
 
     <div id="uc-overlay" class="uc-overlay" role="dialog" aria-modal="true" aria-labelledby="uc-title">
       <div class="uc-card">
+        <h2 id="uc-title">🚧 Work in Progress</h2>
+        <p>This portfolio is currently under development. Content and design may change frequently.</p>
         <h2 id="uc-title">🚧 Work in Progress</h2>
         <p>This portfolio is currently under development. Content and design may change frequently.</p>
       </div>

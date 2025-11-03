@@ -607,17 +607,21 @@ a:focus-visible {
   align-items: start;
   text-align: left;
 }
+
 .two-column.centered {
   text-align: center;
 }
+
 .column {
   min-width: 0;
 }
+
 .column-divider {
   width: 1px;
+  height: 100%;
   min-height: 200px;
-  align-self: stretch;
   background: linear-gradient(to bottom, transparent, var(--border), transparent);
+  align-self: stretch;
 }
 
 /* Two-column centered: truly center inner content in each column */
@@ -796,6 +800,161 @@ a:focus-visible {
   }
 }
 
+/* ============================================
+   RESPONSIVE (consolidated)
+   ============================================ */
+@media (max-width: 768px) {
+  /* Two-column layout → single column */
+  .two-column {
+    grid-template-columns: 1fr !important;
+    gap: 32px;
+  }
+
+  .column-divider {
+    display: none;
+  }
+
+  .section {
+    text-align: center;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 64px 20px;
+  }
+
+  .hero-content {
+    margin-top: -8vh;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+  }
+
+  .nav-list-vertical li {
+    padding: 0 60px;
+  }
+
+  /* Certifications */
+  .cert-item {
+    padding: 8px 10px;
+    gap: 10px;
+  }
+
+  .cert-left {
+    gap: 10px;
+  }
+
+  .cert-thumb {
+    width: 50px;
+    height: 35px;
+    padding: 3px;
+  }
+
+  .cert-body h4 {
+    font-size: 12px;
+  }
+
+  .cert-arrow {
+    display: none;
+  }
+
+  .pdf-viewer-container,
+  .cert-pdf-viewer {
+    min-height: 340px;
+  }
+
+  /* Skills & Contact */
+  .chips li {
+    font-size: 11px;
+    padding: 5px 8px;
+  }
+
+  .social-icons {
+    gap: 20px;
+  }
+
+  .contact-form {
+    max-width: 100%;
+  }
+
+  /* UI elements */
+  .back-to-top {
+    right: 16px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 400px) {
+  .wrap {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .hero {
+    padding: 56px 12px;
+  }
+
+  .hero-content {
+    margin-top: -6vh;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .section {
+    padding: 16px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-list-vertical li {
+    padding: 0 50px;
+  }
+
+  .nav-holder {
+    height: calc(var(--hero-nav-h) + 12px);
+  }
+
+  .cert-item {
+    padding: 6px 8px;
+  }
+
+  .cert-thumb {
+    width: 44px;
+    height: 30px;
+  }
+
+  .cert-body h4 {
+    font-size: 11px;
+  }
+
+  .pdf-viewer-container,
+  .cert-pdf-viewer {
+    min-height: 280px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -803,9 +962,220 @@ a:focus-visible {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
+
   .card:hover {
     transform: none;
   }
+}
+
+/* ============================================
+   CERTIFICATIONS CARDS (borderless, high contrast)
+   ============================================ */
+#certs-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cert-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  background: transparent; /* default: transparent */
+  border: none; /* премахнати всички borders */
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.cert-item:hover {
+  background: rgba(255, 255, 255, 0.04); /* леко осветяване на hover */
+}
+
+.cert-item.active {
+  background: rgba(255, 255, 255, 0.1); /* силен контраст когато е selected */
+}
+
+/* Left: thumb + text */
+.cert-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.cert-thumb {
+  width: 60px;
+  height: 42px;
+  border-radius: 4px;
+  overflow: hidden;
+  background: transparent;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.cert-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 0.7; /* по-тъмни по default */
+  transition: opacity 0.2s ease;
+}
+
+.cert-item:hover .cert-thumb img {
+  opacity: 0.9; /* малко по-светли на hover */
+}
+
+.cert-item.active .cert-thumb img {
+  opacity: 1; /* пълна opacity когато е selected */
+}
+
+.cert-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.cert-body h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted); /* по-тъмен текст по default */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.cert-item:hover .cert-body h4 {
+  color: var(--text); /* по-светъл на hover */
+}
+
+.cert-item.active .cert-body h4 {
+  color: var(--accent); /* accent цвят когато е selected */
+}
+
+/* Right: arrow (hidden on mobile) */
+.cert-arrow {
+  font-size: 14px;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  opacity: 0.3; /* много subtle по default */
+  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+  user-select: none;
+}
+
+.cert-item:hover .cert-arrow {
+  color: var(--accent);
+  opacity: 0.7; /* по-видима на hover */
+}
+
+.cert-item.active .cert-arrow {
+  color: var(--accent);
+  opacity: 1; /* пълна opacity когато е selected */
+}
+
+/* PDF viewer */
+.pdf-viewer-container {
+  position: relative;
+  width: 100%;
+  min-height: 420px;
+  background: #000;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.pdf-viewer-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 12px;
+  background: #000;
+}
+
+.pdf-viewer-placeholder.hidden {
+  display: none;
+}
+
+.cert-pdf-viewer {
+  width: 100%;
+  min-height: 420px;
+  height: 100%;
+  border: 0;
+  display: none;
+  background: #111;
+}
+
+.cert-pdf-viewer.active {
+  display: block;
+}
+
+/* Horizontal Overlay Navbar */
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #1a1a1a; /* solid to keep text crisp */
+  border-bottom: 2px solid #606060; /* visible separator */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  padding: 6px 0; /* thin bar */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.nav-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-overlay-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+}
+.nav-overlay-list a {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 14px;
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.2s ease;
+}
+.nav-overlay-list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+.nav-overlay-list a:hover {
+  color: var(--accent-hover);
+}
+.nav-overlay-list a:hover::after {
+  transform: scaleX(1);
 }
 
 /* Back-to-top button */
@@ -823,32 +1193,29 @@ a:focus-visible {
   color: var(--text);
   border: 1px solid var(--border);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  cursor: pointer;
   opacity: 0;
   pointer-events: none;
   transform: translateY(10px);
-  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  z-index: 200; /* above sticky nav */
+  transition: opacity 0.3s ease, transform 0.3s ease, background 0.2s ease, color 0.2s ease;
+  z-index: 200;
 }
+
 .back-to-top.show {
   opacity: 0.9;
   pointer-events: auto;
   transform: translateY(0);
 }
+
 .back-to-top:hover {
   background: var(--accent);
   color: #000;
-  border-color: var(--accent-hover);
+  border-color: var(--accent);
 }
+
 .back-to-top:focus-visible {
-  outline: 2px solid var(--accent-hover);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
-@media (max-width: 640px) {
-  .back-to-top {
-    right: 16px;
-    bottom: 16px;
-    width: 40px;
-    height: 40px;
-  }
-}
+/* ...existing code... */
