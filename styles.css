@@ -862,7 +862,12 @@ a:focus-visible {
   }
 
   .cert-body h4 {
-    font-size: 12px;
+    font-size: 12px; /* slightly smaller */
+    line-height: 1.15; /* a bit tighter */
+    -webkit-line-clamp: 2; /* enforce 2 lines on mobile */
+    white-space: normal; /* make sure it's allowed to wrap */
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .cert-arrow {
@@ -946,7 +951,10 @@ a:focus-visible {
   }
 
   .cert-body h4 {
-    font-size: 11px;
+    font-size: 11.5px; /* tiny adjustment for very narrow screens */
+    line-height: 1.12;
+    -webkit-line-clamp: 2;
+    white-space: normal;
   }
 
   .pdf-viewer-container,
@@ -1048,19 +1056,40 @@ a:focus-visible {
   margin: 0;
   font-size: 13px;
   font-weight: 400;
-  color: var(--text-muted); /* по-тъмен текст по default */
-  white-space: nowrap;
+  color: var(--text);
+  /* allow wrapping, clamp to max 2 lines with ellipsis where supported */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: color 0.2s ease;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  hyphens: auto;
+  line-height: 1.2;
+  /* ensure normal whitespace (override any earlier nowrap) */
+  white-space: normal;
 }
 
-.cert-item:hover .cert-body h4 {
-  color: var(--text); /* по-светъл на hover */
+/* Responsive: force two-line behaviour and slightly smaller text so titles fit */
+@media (max-width: 768px) {
+  .cert-body h4 {
+    font-size: 12px; /* slightly smaller */
+    line-height: 1.15; /* a bit tighter */
+    -webkit-line-clamp: 2; /* enforce 2 lines on mobile */
+    white-space: normal; /* make sure it's allowed to wrap */
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
 }
 
-.cert-item.active .cert-body h4 {
-  color: var(--accent); /* accent цвят когато е selected */
+@media (max-width: 360px) {
+  .cert-body h4 {
+    font-size: 11.5px; /* tiny adjustment for very narrow screens */
+    line-height: 1.12;
+    -webkit-line-clamp: 2;
+    white-space: normal;
+  }
 }
 
 /* Right: arrow (hidden on mobile) */
@@ -1217,5 +1246,3 @@ a:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
-
-/* ...existing code... */
