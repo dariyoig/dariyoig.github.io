@@ -155,15 +155,15 @@ const FALLBACK_PROJECTS = [
     title: "QA Portfolio Website",
     description: "Modern portfolio showcasing QA skills, projects, and certifications.",
     tags: ["HTML", "CSS", "JavaScript"],
-    url: "https://dariyoig.github.io",
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&q=80&auto=format&fit=crop",
+    url: "https://github.com/dariyoig/dariyoig.github.io",
+    image: "./images/thumb_projects_portfolio.png",
   },
   {
-    title: "Playwright Test Suite",
-    description: "E2E automated testing framework with Page Object Model.",
+    title: "Playwright course project",
+    description: "Project to be finished during the QA Automation course at Skillo.",
     tags: ["JavaScript", "Playwright", "Testing"],
-    url: "#",
-    image: "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=400&q=80&auto=format&fit=crop",
+    url: "https://github.com/dariyoig/qa-automation-course",
+    image: "./images/thumb_project_playwrightCourse.jfif",
   },
 ];
 
@@ -193,7 +193,7 @@ function renderProjects(mountLeft, mountRight, items) {
 function toProjectCard(p) {
   const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
   const link = p.url
-    ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHtml(p.title || "project")}">View Project →</a>`
+    ? `<a href="${escapeAttr(p.url)}" target="_blank" rel="noopener noreferrer" aria-label="View ${escapeHtml(p.title || "project")}">View Project Code→</a>`
     : "";
   const img = p.image ? `<img src="${escapeAttr(p.image)}" alt="${escapeAttr(p.title || "Project")}" class="card-img" loading="lazy" />` : "";
 
