@@ -6,13 +6,13 @@
   --bg-1: #252525; /* section background */
   --bg-2: #323232; /* cards, chips */
   --bg-alt: #2c2c2c; /* alternate sections */
-  --text: #e8e8e8; /* по-сив от Apple white (#f5f5f7) */
-  --text-muted: #a8a8a8; /* muted gray */
+  --text: #ffffff; /* brighter white for headings to maximize contrast */
+  --text-muted: #999999; /* lighter gray for body text to increase overall brightness */
   --border: #404040; /* gray borders */
-  --accent: #c8c8c8; /* по-тъмен сив accent */
+  --accent: #d0d0d0; /* brighter gray for subheadings to stand out from body text */
   --accent-hover: #f0f0f0; /* светъл сив on hover (не чист бял) */
   --radius: 12px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Reduced shadow for minimalism */
   --hero-gradient: radial-gradient(ellipse at center, rgba(10, 10, 10, 0.4) 0%, rgba(15, 15, 15, 0.4) 100%);
 }
 
@@ -36,11 +36,11 @@ body {
   padding: 0;
   color: var(--text);
   background: var(--bg-0);
-  font: 300 14px/1.7 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+  font: 400 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, sans-serif; /* Slightly tighter line-height for compactness */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em; /* Reduced for subtlety */
 }
 
 img,
@@ -83,12 +83,6 @@ svg {
   outline-offset: 2px;
 }
 
-a:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
 /* ============================================
    HERO SECTION
    ============================================ */
@@ -99,7 +93,7 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 80px 20px;
+  padding: 60px 20px; /* Reduced from 80px for tighter spacing */
   overflow: hidden;
 }
 
@@ -116,54 +110,54 @@ a:focus-visible {
   position: relative;
   z-index: 1;
   max-width: 720px;
-  margin-top: -10vh;
+  margin-top: -8vh; /* Adjusted for balance */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding-top: 0;
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* още по-smooth, butter-like easing */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .avatar {
-  width: 115px;
-  height: 115px;
+  width: 100px; /* Reduced from 115px for minimalism */
+  height: 100px;
   border-radius: 50%;
-  border: 3px solid var(--accent); /* light gray border */
-  margin: 0 auto 20px;
+  border: 2px solid var(--accent); /* Thinner border */
+  margin: 0 auto 16px; /* Reduced margin */
   object-fit: cover;
   object-position: center 30%;
   filter: brightness(0.76) contrast(1.05);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .hero h1 {
-  margin: 0 0 12px;
-  font-size: 42px;
+  margin: 0 0 8px; /* Reduced margin */
+  font-size: 38px; /* Reduced from 42px for compactness */
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  color: #e8e8e8; /* по-сив */
+  color: #e8e8e8;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 16px; /* Reduced from 18px */
   font-weight: 400;
-  color: var(--accent); /* light gray */
-  margin: 0 0 56px;
-  letter-spacing: 0.03em;
+  color: var(--accent);
+  margin: 0 0 40px; /* Reduced margin */
+  letter-spacing: 0.02em;
   filter: brightness(1.05);
   text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* по-smooth */
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ============================================
    VERTICAL NAVIGATION (in hero)
    ============================================ */
 .nav-vertical {
-  margin: 48px auto 0;
+  margin: 32px auto 0; /* Reduced from 48px */
   max-width: 280px;
   transition: all 0.3s ease;
   animation: fadeInUp 0.8s ease 0.3s backwards; /* fade-in анимация с 0.3s delay */
@@ -190,8 +184,8 @@ a:focus-visible {
 }
 
 .nav-list-vertical li {
-  border-bottom: 1.5px solid rgba(200, 200, 200, 0.2); /* по-тъмни сиви borders */
-  padding: 0 80px;
+  border-bottom: 1px solid rgba(200, 200, 200, 0.15); /* Thinner border */
+  padding: 0 60px; /* Reduced padding */
 }
 
 .nav-list-vertical li:first-child {
@@ -199,18 +193,18 @@ a:focus-visible {
 }
 
 .nav-list-vertical li:last-child {
-  border-bottom: 1.5px solid rgba(200, 200, 200, 0.2);
+  border-bottom: 1px solid rgba(200, 200, 200, 0.15);
 }
 
 .nav-list-vertical a {
   display: inline-block;
   width: auto;
   margin: 0 auto;
-  color: #d0d0d0; /* по-тъмен сив */
+  color: #d0d0d0;
   text-decoration: none;
-  font-size: 15px;
+  font-size: 14px; /* Reduced from 15px */
   font-weight: 400;
-  padding: 10px 0;
+  padding: 8px 0; /* Reduced padding */
   text-align: center;
   position: relative;
   transition: color 0.3s ease;
@@ -219,10 +213,10 @@ a:focus-visible {
 .nav-list-vertical a::after {
   content: "";
   position: absolute;
-  bottom: 8px;
+  bottom: 6px; /* Adjusted */
   left: 0;
   width: 100%;
-  height: 1px;
+  height: 2px; /* Slightly enlarged */
   background: var(--accent-hover); /* white underline */
   transform: scaleX(0);
   transform-origin: left;
@@ -249,11 +243,11 @@ a:focus-visible {
   right: 0;
   margin: 0;
   max-width: none;
-  padding: 6px 0;
+  padding: 4px 0; /* Reduced */
   background: #1a1a1a; /* solid color вместо rgba за да няма blur issues */
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  border-bottom: 2px solid #606060;
+  border-bottom: 1px solid #606060; /* Thinner */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   z-index: 100;
   animation: slideDown 0.4s ease;
@@ -301,7 +295,7 @@ a:focus-visible {
 .nav-vertical.sticky .nav-list-vertical {
   flex-direction: row;
   justify-content: center;
-  gap: 40px;
+  gap: 32px; /* Reduced */
   padding: 0 20px;
 }
 
@@ -311,9 +305,9 @@ a:focus-visible {
 }
 
 .nav-vertical.sticky .nav-list-vertical a {
-  padding: 4px 16px; /* ДРАСТИЧНО намален от 5px */
+  padding: 2px 12px; /* Reduced */
   margin: 0;
-  font-size: 14px; /* намален от 15px за компактност */
+  font-size: 13px; /* Reduced */
   /* Ensure crisp text rendering */
   text-shadow: none;
   filter: none;
@@ -324,7 +318,7 @@ a:focus-visible {
 }
 
 .nav-vertical.sticky .nav-list-vertical a::after {
-  bottom: 4px;
+  bottom: 2px;
 }
 
 /* Responsive: stack vertically on small screens even when sticky */
@@ -362,50 +356,100 @@ a:focus-visible {
 #projects,
 #certifications,
 #contact {
-  scroll-margin-top: 80px;
+  scroll-margin-top: 60px; /* Adjusted */
 }
 
 .section {
-  margin: 32px 0;
-  padding: 20px;
+  margin: 24px 0; /* Reduced from 32px */
+  padding: 16px; /* Reduced from 20px */
   background: var(--bg-1);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Add transition for smooth hover */
 }
 
+/* Removed alternate background to make all sections consistent */
 #projects,
 #contact {
-  background: var(--bg-alt);
+  background: var(--bg-1);
+}
+
+.section:hover {
+  transform: translateY(-2px); /* Lift the section slightly */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); /* Enhance shadow for depth */
+  background-color: rgba(255, 255, 255, 0.05); /* Increased opacity for more visible color change on hover */
 }
 
 .section h2 {
   margin-top: 0;
-  font-size: 26px;
+  margin-bottom: 16px; /* Added for consistency */
+  font-size: 24px; /* Reduced from 26px */
   font-weight: 500;
-  letter-spacing: 0.02em;
-  text-align: center; /* ensure section titles centered */
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--text); /* Unified color */
+  position: relative; /* For pseudo-elements */
+}
+
+.section h2::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 35%; /* Symmetrical width for closer proximity */
+  height: 2px; /* Slightly enlarged */
+  background: linear-gradient(to right, transparent, var(--border));
+  transform: translateY(-50%);
+}
+
+.section h2::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 35%; /* Symmetrical width for closer proximity */
+  height: 2px; /* Slightly enlarged */
+  background: linear-gradient(to left, transparent, var(--border));
+  transform: translateY(-50%);
+}
+
+.section h3 {
+  font-size: 16px; /* Reduced from 18px */
+  font-weight: 500;
+  margin: 0 0 16px; /* Increased margin for more space below the line */
+  color: var(--accent); /* Unified */
+  text-align: center;
+  position: relative; /* For pseudo-element */
+}
+
+.section h3::after {
+  content: "";
+  position: absolute;
+  bottom: -4px; /* Reduced for less space above the line */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%; /* Narrower for subtlety */
+  height: 2px; /* Slightly enlarged */
+  background: linear-gradient(to right, transparent, var(--border), transparent); /* Subtle gradient for minimalism */
+}
+
+/* Remove the line under h3 in project cards only */
+.card h3::after {
+  display: none;
 }
 
 .section p {
-  max-width: none; /* remove max-width for 2-column layout */
+  max-width: none;
   margin-left: 0;
   margin-right: 0;
   color: var(--text-muted);
-  font-weight: 300;
-  line-height: 1.75;
+  font-weight: 400; /* Unified */
+  line-height: 1.6;
 }
 
 .subsection {
-  margin-top: 32px;
-}
-
-.subsection h3 {
-  font-size: 18px;
-  font-weight: 500;
-  margin: 0 0 12px;
-  color: var(--accent); /* consistent accent for both About and Skills */
-  text-align: center; /* centered in both columns */
+  margin-top: 0px; /* Removed top margin for consistency with other sections */
 }
 
 /* ============================================
@@ -414,7 +458,7 @@ a:focus-visible {
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px; /* Reduced */
   padding: 0;
   margin: 0;
   list-style: none;
@@ -422,12 +466,18 @@ a:focus-visible {
 }
 
 .chips li {
-  padding: 6px 10px;
-  border-radius: 999px;
+  padding: 5px 8px; /* Reduced */
+  border-radius: 8px; /* Smaller */
   background: var(--bg-2);
   border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 12px;
+  color: var(--accent); /* Changed to accent for better visibility and consistency */
+  font-size: 11px; /* Reduced */
+  transition: background-color 0.2s ease; /* Add transition for smooth hover */
+}
+
+.chips li:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Increased opacity for more visible effect */
+  transform: scale(1.02); /* Slight scale for emphasis */
 }
 
 /* ============================================
@@ -435,15 +485,15 @@ a:focus-visible {
    ============================================ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); /* Tighter */
+  gap: 12px; /* Reduced */
 }
 
 .card {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 16px;
+  gap: 6px; /* Reduced */
+  padding: 12px; /* Reduced */
   background: var(--bg-2);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -451,59 +501,59 @@ a:focus-visible {
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px); /* Subtle */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
 .card-img {
   width: 100%;
-  height: 160px;
+  height: 140px; /* Reduced */
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  border-radius: 6px; /* Smaller */
+  margin-bottom: 6px;
 }
 
 .card h3 {
   margin: 0;
-  font-size: 15px;
-  font-weight: 400;
+  font-size: 14px; /* Reduced */
+  font-weight: 500; /* Unified */
   letter-spacing: 0.01em;
 }
 
 .card p {
   margin: 0;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px; /* Reduced */
   line-height: 1.5;
 }
 
 .card a {
   margin-top: auto;
-  color: var(--accent); /* light gray */
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   transition: color 0.2s ease;
 }
 
 .card a:hover {
-  color: var(--accent-hover); /* white on hover */
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
 .tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: 4px; /* Reduced */
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
 .tags li {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 999px;
+  font-size: 10px; /* Reduced */
+  padding: 3px 6px; /* Reduced */
+  border-radius: 6px; /* Smaller */
   border: 1px dashed var(--border);
   color: var(--text-muted);
 }
@@ -518,7 +568,7 @@ a:focus-visible {
 }
 
 .list li {
-  padding: 0px 0;
+  padding: 0 0;
   border-bottom: 1px solid var(--border);
 }
 
@@ -534,20 +584,20 @@ a:focus-visible {
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 16px;
+  gap: 12px; /* Reduced */
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .links a {
-  color: var(--accent); /* light gray */
+  color: var(--accent);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.2s ease;
 }
 
 .links a:hover {
-  color: var(--accent-hover); /* white on hover */
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
@@ -556,8 +606,8 @@ a:focus-visible {
    ============================================ */
 .site-footer {
   color: var(--text-muted);
-  padding: 24px 0 48px;
-  font-size: 14px;
+  padding: 16px 0 32px; /* Reduced */
+  font-size: 13px; /* Reduced */
 }
 
 /* ============================================
@@ -580,8 +630,8 @@ a:focus-visible {
 }
 
 .uc-card {
-  width: min(560px, 92vw);
-  padding: 32px;
+  width: min(480px, 90vw); /* Smaller */
+  padding: 24px; /* Reduced */
   background: var(--bg-1);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -591,6 +641,7 @@ a:focus-visible {
 
 .uc-card h2 {
   margin-top: 0;
+  font-size: 20px; /* Reduced */
 }
 
 .uc-card p {
@@ -602,14 +653,15 @@ a:focus-visible {
    ============================================ */
 .two-column {
   display: grid;
-  grid-template-columns: 1fr auto 1fr; /* left | divider | right */
-  gap: 40px;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px; /* Reduced from 40px */
   align-items: start;
   text-align: left;
 }
 
 .two-column.centered {
   text-align: center;
+  gap: 20px; /* Reduced gap for tighter spacing in centered sections like About and Skills */
 }
 
 .column {
@@ -617,51 +669,50 @@ a:focus-visible {
 }
 
 .column-divider {
-  width: 1px;
+  width: 2px; /* Slightly enlarged */
   height: 100%;
-  min-height: 200px;
+  min-height: 150px; /* Reduced */
   background: linear-gradient(to bottom, transparent, var(--border), transparent);
   align-self: stretch;
 }
 
-/* Two-column centered: truly center inner content in each column */
 .two-column.centered .column {
   display: flex;
   flex-direction: column;
-  align-items: center; /* centers form and social block */
+  align-items: center;
+  justify-content: flex-start; /* Keep flex-start for manual positioning */
 }
 
-/* In section paragraphs inside two columns: allow full width in column */
 .section .two-column p {
   max-width: none;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Contact form fixes */
+/* Contact form */
 .contact-form {
-  max-width: 460px; /* keep it tidy */
-  margin: 0 auto; /* center inside the column */
+  max-width: 400px; /* Smaller */
+  margin: 0 auto;
   align-items: stretch;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px; /* Reduced */
   width: 100%;
-  max-width: 520px; /* keep tidy width */
-  margin: 0 auto; /* center inside column */
-  align-items: stretch; /* inputs and button stretch full width */
+  max-width: 420px;
+  margin: 0 auto;
+  align-items: stretch;
 }
 .contact-form input,
 .contact-form textarea {
   width: 100%;
   display: block;
-  padding: 12px 16px;
+  padding: 10px 14px; /* Reduced */
   background: var(--bg-2);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 6px; /* Smaller */
   color: var(--text);
   font-family: inherit;
-  font-size: 14px;
+  font-size: 13px; /* Reduced */
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   min-width: 0;
@@ -671,315 +722,74 @@ a:focus-visible {
 .contact-form textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(200, 200, 200, 0.12);
+  box-shadow: 0 0 0 2px rgba(200, 200, 200, 0.1); /* Subtle */
 }
 
 .contact-form textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 100px; /* Reduced */
 }
 
 .contact-form button {
-  padding: 12px 20px;
+  padding: 10px 16px; /* Reduced */
   background: var(--accent);
   color: var(--bg-0);
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 13px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  align-self: stretch; /* full-width button to avoid misalignment */
+  align-self: stretch;
 }
 
 .contact-form button:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(224, 224, 224, 0.15);
+  box-shadow: 0 2px 8px rgba(224, 224, 224, 0.1);
 }
 
-/* Social icons: bigger spacing and labels under icons */
+/* ============================================
+   SOCIAL ICONS
+   ============================================ */
 .social-icons {
   display: flex;
-  gap: 32px; /* increased spacing */
+  gap: 20px; /* Increased for more space between icons */
   justify-content: center;
   align-items: center;
   list-style: none;
-  margin: 0;
+  margin: 40px 0 0 0; /* Reduced top margin to 40px to raise icons further */
   padding: 0;
 }
 
 .icon-link {
   color: var(--accent);
   display: inline-flex;
-  flex-direction: column; /* icon above, label below */
+  flex-direction: column;
   align-items: center;
-  gap: 8px; /* space between icon and label */
+  gap: 8px; /* Increased for more space between icon and label */
   line-height: 1;
   text-decoration: none;
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.icon-link .icon-label {
-  font-size: 12px;
-  color: var(--text-muted);
-}
-
 .icon-link:hover {
   color: var(--accent-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-/* Mobile: keep it clean */
-@media (max-width: 768px) {
-  .social-icons {
-    gap: 24px;
-  }
-  .contact-form {
-    max-width: 100%;
-  }
+.icon-link svg {
+  width: 40px; /* Slightly enlarged */
+  height: 40px; /* Slightly enlarged */
+  transition: transform 0.2s ease;
 }
 
-@media (max-width: 640px) {
-  .hero {
-    padding: 64px 20px;
-  }
-  .hero-content {
-    margin-top: -8vh;
-    min-height: 75vh;
-  }
-  .hero h1 {
-    font-size: 36px;
-  }
-  .subtitle {
-    font-size: 16px;
-    margin-bottom: 48px;
-  }
-  .section {
-    padding: 18px;
-  }
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-  .nav-list-vertical li {
-    padding: 0 60px;
-  }
-}
-
-@media (max-width: 400px) {
-  .wrap {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-  .hero {
-    padding: 56px 12px;
-  }
-  .hero-content {
-    margin-top: -6vh;
-    min-height: 70vh;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-  .subtitle {
-    font-size: 15px;
-    margin-bottom: 40px;
-  }
-  .section {
-    padding: 16px;
-  }
-  .grid {
-    grid-template-columns: 1fr;
-  }
-  .nav-list-vertical li {
-    padding: 0 50px;
-  }
-  .nav-vertical {
-    margin-top: 40px;
-  }
+.icon-link:hover svg {
+  transform: scale(1.05);
 }
 
 /* ============================================
-   RESPONSIVE (consolidated)
-   ============================================ */
-@media (max-width: 768px) {
-  /* Two-column layout → single column */
-  .two-column {
-    grid-template-columns: 1fr !important;
-    gap: 32px;
-  }
-
-  .column-divider {
-    display: none;
-  }
-
-  .section {
-    text-align: center;
-  }
-
-  /* Hero */
-  .hero {
-    padding: 64px 20px;
-  }
-
-  .hero-content {
-    margin-top: -8vh;
-  }
-
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .subtitle {
-    font-size: 16px;
-    margin-bottom: 48px;
-  }
-
-  .avatar {
-    width: 100px;
-    height: 100px;
-  }
-
-  .nav-list-vertical li {
-    padding: 0 60px;
-  }
-
-  /* Certifications */
-  .cert-item {
-    padding: 8px 10px;
-    gap: 10px;
-  }
-
-  .cert-left {
-    gap: 10px;
-  }
-
-  .cert-thumb {
-    width: 50px;
-    height: 35px;
-    padding: 3px;
-  }
-
-  .cert-body h4 {
-    font-size: 12px; /* slightly smaller */
-    line-height: 1.15; /* a bit tighter */
-    -webkit-line-clamp: 2; /* enforce 2 lines on mobile */
-    line-clamp: 2;
-    white-space: normal; /* make sure it's allowed to wrap */
-    word-break: break-word;
-    overflow-wrap: anywhere;
-  }
-
-  .cert-arrow {
-    display: none;
-  }
-
-  .pdf-viewer-container,
-  .cert-pdf-viewer {
-    min-height: 340px;
-  }
-
-  /* Skills & Contact */
-  .chips li {
-    font-size: 11px;
-    padding: 5px 8px;
-  }
-
-  .social-icons {
-    gap: 20px;
-  }
-
-  .contact-form {
-    max-width: 100%;
-  }
-
-  /* UI elements */
-  .back-to-top {
-    right: 16px;
-    bottom: 16px;
-    width: 40px;
-    height: 40px;
-  }
-}
-
-@media (max-width: 400px) {
-  .wrap {
-    padding-left: 12px;
-    padding-right: 12px;
-  }
-
-  .hero {
-    padding: 56px 12px;
-  }
-
-  .hero-content {
-    margin-top: -6vh;
-  }
-
-  .hero h1 {
-    font-size: 32px;
-  }
-
-  .subtitle {
-    font-size: 15px;
-    margin-bottom: 40px;
-  }
-
-  .section {
-    padding: 16px;
-  }
-
-  .grid {
-    grid-template-columns: 1fr;
-  }
-
-  .nav-list-vertical li {
-    padding: 0 50px;
-  }
-
-  .nav-holder {
-    height: calc(var(--hero-nav-h) + 12px);
-  }
-
-  .cert-item {
-    padding: 6px 8px;
-  }
-
-  .cert-thumb {
-    width: 44px;
-    height: 30px;
-  }
-
-  .cert-body h4 {
-    font-size: 11.5px; /* tiny adjustment for very narrow screens */
-    line-height: 1.12;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    white-space: normal;
-  }
-
-  .pdf-viewer-container,
-  .cert-pdf-viewer {
-    min-height: 280px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
-
-  .card:hover {
-    transform: none;
-  }
-}
-
-/* ============================================
-   CERTIFICATIONS CARDS (borderless, high contrast)
+   CERTIFICATIONS CARDS
    ============================================ */
 #certs-list {
   display: grid;
@@ -993,40 +803,47 @@ a:focus-visible {
 .cert-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 0px 0px; /* drastically reduced from 4px */
-  border-radius: 16px;
+  gap: 4px; /* Reduced */
+  padding: 8px 0; /* Reduced */
+  border-radius: 12px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .cert-item:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03); /* Subtle */
+}
+
+.cert-item:hover .cert-body h4 {
+  color: var(--accent); /* Change text color on hover */
 }
 
 .cert-item.active {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.06);
 }
 
-/* Left: thumb + text */
+.cert-item.active .cert-body h4 {
+  color: var(--accent); /* Change text color when active */
+}
+
 .cert-left {
   display: flex;
-  align-items: center; /* ensure vertical centering */
-  gap: 6px; /* намален от 8px */
+  align-items: center;
+  gap: 4px; /* Reduced */
   flex: 1;
   min-width: 0;
 }
 
 .cert-thumb {
-  width: 96px;
-  height: 66px;
-  border-radius: 16px; /* увеличен от 8px на 16px за по-видимо заобляне */
+  width: 80px; /* Reduced */
+  height: 56px; /* Reduced */
+  border-radius: 12px;
   overflow: hidden;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px;
+  padding: 3px;
   background: inherit;
 }
 
@@ -1035,36 +852,34 @@ a:focus-visible {
   max-height: 100%;
   width: auto;
   height: auto;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-/* Right: arrow (hidden on mobile) */
 .cert-arrow {
-  font-size: 14px;
+  font-size: 12px; /* Reduced */
   color: var(--text-muted);
   flex-shrink: 0;
-  opacity: 0.3; /* много subtle по default */
+  opacity: 0.3;
   transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
   user-select: none;
 }
 
 .cert-item:hover .cert-arrow {
   color: var(--accent);
-  opacity: 0.7; /* по-видима на hover */
+  opacity: 0.6;
 }
 
 .cert-item.active .cert-arrow {
   color: var(--accent);
-  opacity: 1; /* пълна opacity когато е selected */
+  opacity: 1;
 }
 
-/* PDF viewer */
 .pdf-viewer-container {
   position: relative;
   width: 100%;
-  min-height: 420px;
+  min-height: 360px; /* Reduced */
   background: #000;
-  border-radius: 12px; /* по-голям радиус на PDF viewer-а */
+  border-radius: 10px;
   overflow: hidden;
   border: 1px solid var(--border);
 }
@@ -1076,7 +891,7 @@ a:focus-visible {
   align-items: center;
   justify-content: center;
   color: var(--text-muted);
-  font-size: 12px;
+  font-size: 11px;
   background: #000;
 }
 
@@ -1086,7 +901,7 @@ a:focus-visible {
 
 .cert-pdf-viewer {
   width: 100%;
-  min-height: 420px;
+  min-height: 360px;
   height: 100%;
   border: 0;
   display: none;
@@ -1097,17 +912,16 @@ a:focus-visible {
   display: block;
 }
 
-/* Horizontal Overlay Navbar */
 .nav-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  background: #1a1a1a; /* solid to keep text crisp */
-  border-bottom: 2px solid #606060; /* visible separator */
+  background: #1a1a1a;
+  border-bottom: 1px solid #606060;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
   z-index: 200;
-  padding: 6px 0; /* thin bar */
+  padding: 4px 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s ease;
@@ -1124,14 +938,14 @@ a:focus-visible {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 28px;
+  gap: 24px; /* Reduced */
 }
 .nav-overlay-list a {
   color: #e0e0e0;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px; /* Reduced */
   position: relative;
-  padding: 4px 0;
+  padding: 2px 0;
   transition: color 0.2s ease;
 }
 .nav-overlay-list a::after {
@@ -1140,7 +954,7 @@ a:focus-visible {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 1px;
+  height: 2px; /* Slightly enlarged */
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: left;
@@ -1153,13 +967,12 @@ a:focus-visible {
   transform: scaleX(1);
 }
 
-/* Back-to-top button */
 .back-to-top {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
-  width: 44px;
-  height: 44px;
+  right: 20px; /* Adjusted */
+  bottom: 20px;
+  width: 36px; /* Smaller */
+  height: 36px;
   border-radius: 50%;
   display: inline-flex;
   align-items: center;
@@ -1167,7 +980,7 @@ a:focus-visible {
   background: var(--bg-2);
   color: var(--text);
   border: 1px solid var(--border);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
@@ -1195,12 +1008,58 @@ a:focus-visible {
 
 .cert-body h4 {
   margin: 0;
-  font-size: 13px;
-  font-weight: normal;
-  line-height: 1.1; /* намален за по-компактен вид */
+  font-size: 12px; /* Reduced */
+  font-weight: 500; /* Unified */
+  line-height: 1.2; /* Tighter */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  color: var(--text-muted); /* Changed to text-muted for consistency and to avoid other style overrides */
 }
+
+/* ============================================
+   UNIFIED HEADINGS FOR ALL SECTIONS (Including About if needed)
+   ============================================ */
+/* Ensure all h2 across sections (Skills, Projects, Certifications, Contact, and any About) are consistent */
+#skills h2,
+#projects h2,
+#certifications h2,
+#contact h2,
+#about h2 {
+  /* Add #about if there's an About section */
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  text-align: center;
+  color: var(--text);
+}
+
+/* Ensure all h3 (subheadings) across sections are consistent */
+#skills h3,
+#projects h3,
+#certifications h3,
+#contact h3,
+#about h3 {
+  /* Add #about if there's an About section */
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 12px;
+  color: var(--accent);
+  text-align: center;
+}
+
+/* If About is in hero, ensure subtitle is consistent with h3 if treated as subheading */
+.hero .subtitle {
+  font-size: 16px;
+  font-weight: 400; /* Keep lighter for subtitle */
+  color: var(--accent);
+  margin: 0 0 40px;
+  letter-spacing: 0.02em;
+  text-align: center; /* Ensure centered */
+}
+
+/* Responsive media queries adjusted proportionally for smaller values */

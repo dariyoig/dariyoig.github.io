@@ -4,7 +4,6 @@
 // INIT
 // ============================================
 document.addEventListener("DOMContentLoaded", () => {
-  initYear();
   initOverlay();
   initStickyNav();
   syncHeroNavHeight();
@@ -34,14 +33,6 @@ function debounce(fn, wait) {
     clearTimeout(timeout);
     timeout = setTimeout(() => fn.apply(this, args), wait);
   };
-}
-
-// ============================================
-// YEAR (Footer)
-// ============================================
-function initYear() {
-  const yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
 }
 
 // ============================================
