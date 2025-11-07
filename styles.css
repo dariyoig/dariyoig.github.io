@@ -101,7 +101,7 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--hero-gradient), url("https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=1920&q=80") center/cover;
+  background: var(--hero-gradient), url("./images/hero.jfif") center/cover;
   filter: grayscale(1) brightness(0.78) contrast(1.12); /* full grayscale - no color tints */
   z-index: 0;
 }
