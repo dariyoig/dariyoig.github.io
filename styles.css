@@ -359,11 +359,12 @@ svg {
 /* ============================================
    CONTENT SECTIONS
    ============================================ */
+#about,
 #skills,
 #projects,
 #certifications,
 #contact {
-  scroll-margin-top: 60px; /* Adjusted */
+  scroll-margin-top: 80px; /* Increased to account for navbar height */
 }
 
 .section {
