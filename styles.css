@@ -327,34 +327,6 @@ svg {
   bottom: 2px;
 }
 
-/* Responsive: stack vertically on small screens even when sticky */
-@media (max-width: 640px) {
-  .nav-vertical.sticky .nav-list-vertical {
-    flex-direction: row; /* запазва хоризонтално подреждане */
-    gap: 16px; /* намален от 40px за повече място */
-    flex-wrap: wrap; /* позволява wrap ако няма място */
-    justify-content: center;
-  }
-  .nav-vertical.sticky {
-    padding: 5px 0;
-  }
-  .nav-vertical.sticky .nav-list-vertical a {
-    padding: 4px 8px; /* намален horizontal padding от 16px */
-    font-size: 13px; /* намален от 14px */
-  }
-}
-
-/* Extra small screens: further reduce */
-@media (max-width: 400px) {
-  .nav-vertical.sticky .nav-list-vertical {
-    gap: 12px; /* още по-малък gap */
-  }
-  .nav-vertical.sticky .nav-list-vertical a {
-    padding: 4px 6px; /* минимален padding */
-    font-size: 12px; /* още по-малък */
-  }
-}
-
 /* ============================================
    CONTENT SECTIONS
    ============================================ */
@@ -1056,4 +1028,52 @@ svg {
   height: 100%;
   border: none;
   border-radius: var(--radius);
+}
+
+/* ============================================
+   RESPONSIVE MEDIA QUERIES - MUST BE LAST!
+   ============================================ */
+@media (max-width: 768px) {
+  .section h2::before,
+  .section h2::after {
+    display: none;
+  }
+
+  .two-column {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .column-divider {
+    display: none !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-vertical.sticky .nav-list-vertical {
+    flex-direction: row;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-vertical.sticky {
+    padding: 5px 0;
+  }
+
+  .nav-vertical.sticky .nav-list-vertical a {
+    padding: 4px 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .nav-vertical.sticky .nav-list-vertical {
+    gap: 12px;
+  }
+
+  .nav-vertical.sticky .nav-list-vertical a {
+    padding: 4px 6px;
+    font-size: 12px;
+  }
 }
