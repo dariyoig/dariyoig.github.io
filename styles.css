@@ -5,7 +5,6 @@
   --bg-0: #1a1a1a; /* dark gray base */
   --bg-1: #252525; /* section background */
   --bg-2: #323232; /* cards, chips */
-  --bg-alt: #2c2c2c; /* alternate sections */
   --text: #ffffff; /* brighter white for headings to maximize contrast */
   --text-muted: #999999; /* lighter gray for body text to increase overall brightness */
   --border: #404040; /* gray borders */
@@ -623,44 +622,6 @@ svg {
 }
 
 /* ============================================
-   UNDER CONSTRUCTION OVERLAY
-   ============================================ */
-.uc-overlay {
-  position: fixed;
-  inset: 0;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.85);
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-  z-index: 999;
-}
-
-.uc-overlay.show {
-  display: flex;
-}
-
-.uc-card {
-  width: min(480px, 90vw); /* Smaller */
-  padding: 24px; /* Reduced */
-  background: var(--bg-1);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  text-align: center;
-}
-
-.uc-card h2 {
-  margin-top: 0;
-  font-size: 20px; /* Reduced */
-}
-
-.uc-card p {
-  color: var(--text-muted);
-}
-
-/* ============================================
    TWO-COLUMN LAYOUT (for sections)
    ============================================ */
 .two-column {
@@ -699,18 +660,6 @@ svg {
   max-width: none;
   margin-left: auto;
   margin-right: auto;
-}
-
-/* Responsive: stack columns vertically on smaller screens */
-@media (max-width: 768px) {
-  .two-column {
-    grid-template-columns: 1fr; /* Single column */
-    gap: 16px; /* Smaller gap */
-  }
-
-  .column-divider {
-    display: none; /* Hide divider on small screens */
-  }
 }
 
 /* Contact form */
@@ -764,13 +713,21 @@ svg {
   font-size: 13px;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  align-self: stretch;
 }
 
 .contact-form button:hover {
   background: var(--accent-hover);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(224, 224, 224, 0.1);
+}
+
+.contact-message {
+  margin-top: 120px;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-muted);
+  text-align: center;
+  line-height: 1.5;
 }
 
 /* ============================================

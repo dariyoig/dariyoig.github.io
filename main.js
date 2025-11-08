@@ -1,34 +1,23 @@
 "use strict";
 
-// ============================================
-// INIT
-// ============================================
+/**
+ * Initialize all application features
+ */
 document.addEventListener("DOMContentLoaded", () => {
-  initOverlay();
   initStickyNav();
-  syncHeroNavHeight();
   initBackToTop();
   loadProjects();
   loadCerts();
   initNavScroll();
-  initAvatarReload(); // Add this
-
-  window.addEventListener("resize", debounce(syncHeroNavHeight, 150));
+  initAvatarReload();
 });
 
-// ============================================
-// HELPERS
-// ============================================
-function escapeHtml(str) {
-  const div = document.createElement("div");
-  div.textContent = String(str || "");
-  return div.innerHTML;
-}
-
-function escapeAttr(str) {
-  return escapeHtml(str).replace(/"/g, "&quot;");
-}
-
+/**
+ * Debounce function execution
+ * @param {Function} fn - Function to debounce
+ * @param {number} wait - Wait time in ms
+ * @returns {Function} Debounced function
+ */
 function debounce(fn, wait) {
   let timeout;
   return function (...args) {
@@ -37,25 +26,32 @@ function debounce(fn, wait) {
   };
 }
 
-// ============================================
-// UNDER CONSTRUCTION OVERLAY
-// ============================================
-function initOverlay() {
-  const overlay = document.getElementById("uc-overlay");
-  const showOverlay = window.__UNDER_CONSTRUCTION__ === true;
-  if (overlay) {
-    overlay.classList.toggle("show", showOverlay);
-    document.documentElement.style.overflow = showOverlay ? "hidden" : "";
-  }
+/**
+ * Escape HTML special characters
+ * @param {string} str - String to escape
+ * @returns {string} Escaped string
+ */
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = String(str || "");
+  return div.innerHTML;
 }
 
-// ============================================
-// STICKY NAVBAR (overlay)
-// ============================================
+/**
+ * Escape attribute special characters
+ * @param {string} str - String to escape
+ * @returns {string} Escaped string
+ */
+function escapeAttr(str) {
+  return escapeHtml(str).replace(/"/g, "&quot;");
+}
+
+/**
+ * Initialize sticky navigation overlay
+ */
 function initStickyNav() {
   const hero = document.getElementById("hero");
   const overlay = document.getElementById("nav-overlay");
-
   if (!hero || !overlay) return;
 
   let shown = false;
@@ -89,19 +85,9 @@ function initStickyNav() {
   update();
 }
 
-// ============================================
-// HERO NAV HEIGHT SYNC
-// ============================================
-function syncHeroNavHeight() {
-  const nav = document.getElementById("main-nav");
-  if (!nav) return;
-  const h = nav.offsetHeight || 220;
-  document.documentElement.style.setProperty("--hero-nav-h", `${h}px`);
-}
-
-// ============================================
-// BACK TO TOP
-// ============================================
+/**
+ * Initialize back to top button
+ */
 function initBackToTop() {
   const btn = document.getElementById("back-to-top");
   if (!btn) return;
@@ -140,26 +126,9 @@ function initBackToTop() {
   update();
 }
 
-// ============================================
-// PROJECTS
-// ============================================
-const FALLBACK_PROJECTS = [
-  {
-    title: "QA Portfolio Website",
-    description: "Modern portfolio showcasing QA skills, projects, and certifications.",
-    tags: ["HTML", "CSS", "JavaScript"],
-    url: "https://github.com/dariyoig/dariyoig.github.io",
-    image: "./images/thumb_projects_portfolio.png",
-  },
-  {
-    title: "Playwright course project",
-    description: "Project to be finished during the QA Automation course at Skillo.",
-    tags: ["JavaScript", "Playwright", "Testing"],
-    url: "https://github.com/dariyoig/qa-automation-course",
-    image: "./images/thumb_project_playwrightCourse.jfif",
-  },
-];
-
+/**
+ * Load and render projects
+ */
 async function loadProjects() {
   const mountLeft = document.getElementById("projects-list-left");
   const mountRight = document.getElementById("projects-list-right");
@@ -167,15 +136,28 @@ async function loadProjects() {
 
   try {
     const res = await fetch("./data/projects.json");
-    let items = res.ok ? await res.json() : FALLBACK_PROJECTS;
-    if (!Array.isArray(items) || !items.length) items = FALLBACK_PROJECTS;
-    if (items.length % 2 === 1) items = items.slice(0, -1);
-    renderProjects(mountLeft, mountRight, items);
-  } catch {
-    renderProjects(mountLeft, mountRight, FALLBACK_PROJECTS);
+    if (!res.ok) throw new Error("Failed to fetch projects");
+
+    const items = await res.json();
+    if (!Array.isArray(items) || !items.length) {
+      throw new Error("Invalid projects data");
+    }
+
+    const evenItems = items.length % 2 === 0 ? items : items.slice(0, -1);
+    renderProjects(mountLeft, mountRight, evenItems);
+  } catch (error) {
+    console.error("Error loading projects:", error);
+    mountLeft.innerHTML = '<p style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load projects.</p>';
+    mountRight.innerHTML = "";
   }
 }
 
+/**
+ * Render projects into left and right columns
+ * @param {HTMLElement} mountLeft - Left column mount point
+ * @param {HTMLElement} mountRight - Right column mount point
+ * @param {Array} items - Project items
+ */
 function renderProjects(mountLeft, mountRight, items) {
   const leftItems = items.filter((_, i) => i % 2 === 0);
   const rightItems = items.filter((_, i) => i % 2 === 1);
@@ -183,6 +165,11 @@ function renderProjects(mountLeft, mountRight, items) {
   mountRight.innerHTML = rightItems.map(toProjectCard).join("");
 }
 
+/**
+ * Convert project object to HTML card
+ * @param {Object} p - Project object
+ * @returns {string} HTML string
+ */
 function toProjectCard(p) {
   const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join("");
   const link = p.url
@@ -200,36 +187,40 @@ function toProjectCard(p) {
   </article>`;
 }
 
-// ============================================
-// CERTIFICATIONS
-// ============================================
+/**
+ * Load and render certifications
+ */
 async function loadCerts() {
   const mountQA = document.getElementById("certs-list-qa");
   const mountDev = document.getElementById("certs-list-dev");
-
   if (!mountQA || !mountDev) return;
 
   try {
     const res = await fetch("./data/certifications.json");
-    const items = res.ok ? await res.json() : [];
+    if (!res.ok) throw new Error("Failed to fetch certifications");
 
-    if (Array.isArray(items) && items.length) {
-      // Filter items by category (assuming 'category' field: 'qa' or 'dev')
-      const qaItems = items.filter((item) => item.category === "qa");
-      const devItems = items.filter((item) => item.category === "dev");
-
-      renderCerts(mountQA, qaItems);
-      renderCerts(mountDev, devItems);
-    } else {
-      mountQA.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No QA certifications available yet.</li>';
-      mountDev.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No Development certifications available yet.</li>';
+    const items = await res.json();
+    if (!Array.isArray(items) || !items.length) {
+      throw new Error("Invalid certifications data");
     }
-  } catch {
-    mountQA.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load QA certifications.</li>';
-    mountDev.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load Development certifications.</li>';
+
+    const qaItems = items.filter((item) => item.category === "qa");
+    const devItems = items.filter((item) => item.category === "dev");
+
+    renderCerts(mountQA, qaItems);
+    renderCerts(mountDev, devItems);
+  } catch (error) {
+    console.error("Error loading certifications:", error);
+    mountQA.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load certifications.</li>';
+    mountDev.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load certifications.</li>';
   }
 }
 
+/**
+ * Convert certification object to HTML card
+ * @param {Object} c - Certification object
+ * @returns {string} HTML string
+ */
 function toCertCard(c) {
   const title = escapeHtml(c.name || "Certificate");
   const issuer = escapeHtml(c.issuer || "Issuer");
@@ -252,20 +243,23 @@ function toCertCard(c) {
     </li>`;
 }
 
+/**
+ * Render certifications and attach event listeners
+ * @param {HTMLElement} mount - Mount point
+ * @param {Array} items - Certification items
+ */
 function renderCerts(mount, items) {
   mount.innerHTML = items.map(toCertCard).join("");
 
   mount.querySelectorAll(".cert-item").forEach((item, idx) => {
     const pdf = items[idx]?.pdf;
+    if (!pdf) return;
+
     item.setAttribute("role", "button");
     item.setAttribute("tabindex", "0");
     item.setAttribute("aria-label", `View ${items[idx]?.name || "certificate"}`);
 
-    const handleClick = () => {
-      if (pdf) {
-        openPdfModal(pdf);
-      }
-    };
+    const handleClick = () => openPdfModal(pdf);
 
     item.addEventListener("click", handleClick);
     item.addEventListener("keydown", (e) => {
@@ -277,33 +271,43 @@ function renderCerts(mount, items) {
   });
 }
 
+/**
+ * Open PDF modal with cleanup
+ * @param {string} pdfUrl - URL of PDF file
+ */
 function openPdfModal(pdfUrl) {
   const modal = document.getElementById("pdf-modal");
   const iframe = document.getElementById("pdf-iframe");
   const closeBtn = document.getElementById("pdf-modal-close");
+  if (!modal || !iframe || !closeBtn) return;
 
-  if (modal && iframe) {
-    iframe.src = pdfUrl;
-    modal.classList.add("show");
+  iframe.src = pdfUrl;
+  modal.classList.add("show");
 
-    const closeModal = () => {
-      modal.classList.remove("show");
-      iframe.src = "";
-    };
+  const closeModal = () => {
+    modal.classList.remove("show");
+    iframe.src = "";
+    document.removeEventListener("keydown", handleEscape);
+    modal.removeEventListener("click", handleBackdropClick);
+    closeBtn.removeEventListener("click", closeModal);
+  };
 
-    closeBtn.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-  }
+  const handleEscape = (e) => {
+    if (e.key === "Escape") closeModal();
+  };
+
+  const handleBackdropClick = (e) => {
+    if (e.target === modal) closeModal();
+  };
+
+  closeBtn.addEventListener("click", closeModal, { once: true });
+  modal.addEventListener("click", handleBackdropClick);
+  document.addEventListener("keydown", handleEscape);
 }
 
-// ============================================
-// NAV SCROLL WITHOUT URL CHANGE
-// ============================================
+/**
+ * Initialize smooth scrolling for navigation links
+ */
 function initNavScroll() {
   document.querySelectorAll(".nav-list-vertical a, .nav-overlay-list a").forEach((a) => {
     a.addEventListener("click", (e) => {
@@ -317,12 +321,18 @@ function initNavScroll() {
   });
 }
 
-// ============================================
-// AVATAR RELOAD
-// ============================================
+/**
+ * Initialize avatar click to reload page
+ */
 function initAvatarReload() {
   const avatar = document.querySelector(".avatar");
-  if (avatar) {
-    avatar.addEventListener("click", () => location.reload());
-  }
+  if (!avatar) return;
+
+  avatar.addEventListener("click", () => {
+    try {
+      location.reload();
+    } catch (error) {
+      console.error("Failed to reload page:", error);
+    }
+  });
 }

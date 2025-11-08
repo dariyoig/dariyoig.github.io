@@ -10,18 +10,18 @@
     />
     <meta name="author" content="Dariyo Ignatov" />
 
-    <!-- Open Graph (no images to avoid fallback issues) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://dariyoig.github.io/" />
     <meta property="og:title" content="Dariyo Ignatov | QA Engineer Portfolio" />
     <meta property="og:description" content="QA Engineer portfolio showcasing skills, projects, and certifications." />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Dariyo Ignatov | QA Engineer Portfolio" />
     <meta name="twitter:description" content="QA Engineer portfolio showcasing skills, projects, and certifications." />
 
     <link rel="stylesheet" href="./styles.css" />
-    <script defer src="./config.js"></script>
     <script defer src="./main.js"></script>
   </head>
   <body>
@@ -30,7 +30,7 @@
     <main id="main-content">
       <section id="hero" class="hero">
         <div class="hero-content wrap">
-          <img class="avatar" src="./images/avatar.png" alt="Profile photo" onclick="location.reload()" />
+          <img class="avatar" src="./images/avatar.png" alt="Dariyo Ignatov profile photo" />
           <h1>Dariyo Ignatov</h1>
           <p class="subtitle">Software Quality Assurance Specialist</p>
 
@@ -62,7 +62,7 @@
           <div class="two-column centered">
             <div class="column">
               <h3>Who I am</h3>
-              <p>I’m a QA Engineer who likes to keep things simple and reliable. I care about clean code, stable products, and doing the job right.</p>
+              <p>I'm a QA Engineer who likes to keep things simple and reliable. I care about clean code, stable products, and doing the job right.</p>
             </div>
             <div class="column-divider"></div>
             <div class="column">
@@ -146,11 +146,9 @@
             <div class="column">
               <h3>Write me</h3>
               <form class="contact-form" action="https://formsubmit.co/dariyo.ignatov@icloud.com" method="POST">
-                <!-- FormSubmit hidden fields -->
                 <input type="hidden" name="_subject" value="New contact from dariyoig.github.io" />
                 <input type="hidden" name="_captcha" value="false" />
                 <input type="hidden" name="_template" value="table" />
-
                 <input type="text" name="name" placeholder="Your Name" required />
                 <input type="email" name="email" placeholder="Your Email" required />
                 <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
@@ -196,9 +194,7 @@
                   </a>
                 </li>
               </ul>
-              <p style="margin-top: 120px; font-size: 14px; font-weight: 300; color: var(--text-muted); text-align: center; line-height: 1.5">
-                Feel free to connect or reach out!
-              </p>
+              <p class="contact-message">Feel free to connect or reach out!</p>
             </div>
           </div>
         </section>
@@ -209,8 +205,7 @@
       <small>Designed by Dariyo, Built with AI</small>
     </footer>
 
-    <!-- Horizontal overlay navbar (appears on scroll) -->
-    <nav id="nav-overlay" class="nav-overlay" aria-label="Main navigation (overlay)">
+    <nav id="nav-overlay" class="nav-overlay" aria-label="Main navigation overlay">
       <ul class="nav-overlay-list">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -220,22 +215,12 @@
       </ul>
     </nav>
 
-    <!-- Back to top button -->
     <button id="back-to-top" class="back-to-top" aria-label="Scroll back to top">
-      <!-- simple chevron-up icon -->
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
         <path d="M12 7.5l7 7-1.5 1.5L12 10.5 6.5 16 5 14.5l7-7z" />
       </svg>
     </button>
 
-    <div id="uc-overlay" class="uc-overlay" role="dialog" aria-modal="true" aria-labelledby="uc-title">
-      <div class="uc-card">
-        <h2 id="uc-title">🚧 Work in Progress</h2>
-        <p>This portfolio is currently under development. Content and design may change frequently.</p>
-      </div>
-    </div>
-
-    <!-- PDF Modal -->
     <div id="pdf-modal" class="pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
       <div class="pdf-modal-content">
         <button id="pdf-modal-close" class="pdf-modal-close" aria-label="Close PDF viewer">&times;</button>
