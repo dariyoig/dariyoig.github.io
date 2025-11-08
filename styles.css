@@ -101,7 +101,7 @@ svg {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--hero-gradient), url("./images/hero.jfif") center/cover;
+  background: var(--hero-gradient), url("./images/hero.png") center/cover;
   filter: grayscale(1) brightness(0.78) contrast(1.12); /* full grayscale - no color tints */
   z-index: 0;
 }
@@ -414,6 +414,14 @@ svg {
   transform: translateY(-50%);
 }
 
+/* Hide h2 lines on smaller screens to prevent overlap */
+@media (max-width: 768px) {
+  .section h2::before,
+  .section h2::after {
+    display: none;
+  }
+}
+
 .section h3 {
   font-size: 16px; /* Reduced from 18px */
   font-weight: 500;
@@ -569,11 +577,7 @@ svg {
 
 .list li {
   padding: 0 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.list li:last-child {
-  border-bottom: 0;
+  /* Removed border-bottom to avoid conflict with .cert-item */
 }
 
 /* ============================================
@@ -689,6 +693,18 @@ svg {
   margin-right: auto;
 }
 
+/* Responsive: stack columns vertically on smaller screens */
+@media (max-width: 768px) {
+  .two-column {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 16px; /* Smaller gap */
+  }
+
+  .column-divider {
+    display: none; /* Hide divider on small screens */
+  }
+}
+
 /* Contact form */
 .contact-form {
   max-width: 400px; /* Smaller */
@@ -791,27 +807,18 @@ svg {
 /* ============================================
    CERTIFICATIONS CARDS
    ============================================ */
-#certs-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
 .cert-item {
   display: flex;
+  justify-content: flex-start; /* Align to start */
   align-items: center;
-  gap: 4px; /* Reduced */
-  padding: 8px 0; /* Reduced */
-  border-radius: 12px;
-  cursor: pointer;
+  padding: 12px 0; /* Clean padding for separation */
+  border-bottom: 1px solid var(--border); /* Subtle border for division */
+  cursor: pointer; /* Indicate clickable */
   transition: all 0.2s ease;
 }
 
 .cert-item:hover {
-  background: rgba(255, 255, 255, 0.03); /* Subtle */
+  background: rgba(255, 255, 255, 0.02); /* Very subtle hover background */
 }
 
 .cert-item:hover .cert-body h4 {
@@ -819,7 +826,7 @@ svg {
 }
 
 .cert-item.active {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .cert-item.active .cert-body h4 {
@@ -829,21 +836,21 @@ svg {
 .cert-left {
   display: flex;
   align-items: center;
-  gap: 4px; /* Reduced */
+  gap: 8px; /* Increased gap for better spacing */
   flex: 1;
   min-width: 0;
 }
 
 .cert-thumb {
-  width: 80px; /* Reduced */
-  height: 56px; /* Reduced */
-  border-radius: 12px;
+  width: 60px; /* Adjusted for card size */
+  height: 42px; /* Adjusted proportionally */
+  border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3px;
+  padding: 2px;
   background: inherit;
 }
 
@@ -852,64 +859,36 @@ svg {
   max-height: 100%;
   width: auto;
   height: auto;
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
-.cert-arrow {
-  font-size: 12px; /* Reduced */
-  color: var(--text-muted);
-  flex-shrink: 0;
-  opacity: 0.3;
-  transition: color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
-  user-select: none;
-}
-
-.cert-item:hover .cert-arrow {
-  color: var(--accent);
-  opacity: 0.6;
-}
-
-.cert-item.active .cert-arrow {
-  color: var(--accent);
-  opacity: 1;
-}
-
-.pdf-viewer-container {
-  position: relative;
-  width: 100%;
-  min-height: 360px; /* Reduced */
-  background: #000;
-  border-radius: 10px;
+.cert-body h4 {
+  margin: 0;
+  font-size: 13px; /* Slightly larger for readability */
+  font-weight: 500;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  border: 1px solid var(--border);
+  color: var(--text-muted);
 }
 
-.pdf-viewer-placeholder {
-  position: absolute;
-  inset: 0;
+.cert-right {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+}
+
+.cert-view-icon {
+  font-size: 14px;
   color: var(--text-muted);
-  font-size: 11px;
-  background: #000;
+  transition: color 0.2s ease;
 }
 
-.pdf-viewer-placeholder.hidden {
-  display: none;
-}
-
-.cert-pdf-viewer {
-  width: 100%;
-  min-height: 360px;
-  height: 100%;
-  border: 0;
-  display: none;
-  background: #111;
-}
-
-.cert-pdf-viewer.active {
-  display: block;
+.cert-item:hover .cert-view-icon {
+  color: var(--accent);
 }
 
 .nav-overlay {
@@ -1006,19 +985,6 @@ svg {
   outline-offset: 2px;
 }
 
-.cert-body h4 {
-  margin: 0;
-  font-size: 12px; /* Reduced */
-  font-weight: 500; /* Unified */
-  line-height: 1.2; /* Tighter */
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  color: var(--text-muted); /* Changed to text-muted for consistency and to avoid other style overrides */
-}
-
 /* ============================================
    UNIFIED HEADINGS FOR ALL SECTIONS (Including About if needed)
    ============================================ */
@@ -1062,4 +1028,67 @@ svg {
   text-align: center; /* Ensure centered */
 }
 
-/* Responsive media queries adjusted proportionally for smaller values */
+/* ============================================
+   PDF MODAL
+   ============================================ */
+.pdf-modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.pdf-modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-modal-content {
+  position: relative;
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 800px;
+  height: 80vh;
+  max-height: 600px;
+  box-shadow: var(--shadow);
+}
+
+.pdf-modal-close {
+  position: absolute;
+  top: 15px; /* Increased from 10px */
+  right: 15px;
+  background: var(--bg-2); /* Added background for visibility */
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  width: 32px; /* Added size */
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* Reduced from 24px */
+  color: var(--text);
+  cursor: pointer;
+  z-index: 1001;
+  transition: background 0.2s ease;
+}
+
+.pdf-modal-close:hover {
+  background: var(--accent);
+  color: var(--bg-0);
+}
+
+#pdf-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: var(--radius);
+}

@@ -30,7 +30,7 @@
     <main id="main-content">
       <section id="hero" class="hero">
         <div class="hero-content wrap">
-          <img class="avatar" src="./images/avatar2.png" alt="Profile photo" />
+          <img class="avatar" src="./images/avatar.png" alt="Profile photo" />
           <h1>Dariyo Ignatov</h1>
           <p class="subtitle">Software Quality Assurance Specialist</p>
 
@@ -119,18 +119,13 @@
           <h2>Certifications</h2>
           <div class="two-column">
             <div class="column">
-              <h3>Certificates</h3>
-              <ul id="certs-list" class="list"></ul>
+              <h3>Testing Certifications</h3>
+              <ul id="certs-list-qa" class="list"></ul>
             </div>
             <div class="column-divider"></div>
             <div class="column">
-              <h3>Preview</h3>
-              <div class="pdf-viewer-container">
-                <div id="pdf-viewer-placeholder" class="pdf-viewer-placeholder">
-                  <p>Select a certificate to preview</p>
-                </div>
-                <iframe id="cert-pdf-viewer" class="cert-pdf-viewer" title="Certificate preview"></iframe>
-              </div>
+              <h3>Coding Certifications</h3>
+              <ul id="certs-list-dev" class="list"></ul>
             </div>
           </div>
         </section>
@@ -227,6 +222,14 @@
       <div class="uc-card">
         <h2 id="uc-title">🚧 Work in Progress</h2>
         <p>This portfolio is currently under development. Content and design may change frequently.</p>
+      </div>
+    </div>
+
+    <!-- PDF Modal -->
+    <div id="pdf-modal" class="pdf-modal" role="dialog" aria-modal="true" aria-labelledby="pdf-modal-title">
+      <div class="pdf-modal-content">
+        <button id="pdf-modal-close" class="pdf-modal-close" aria-label="Close PDF viewer">&times;</button>
+        <iframe id="pdf-iframe" title="Certificate PDF" src=""></iframe>
       </div>
     </div>
   </body>

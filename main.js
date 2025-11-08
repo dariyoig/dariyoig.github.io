@@ -202,29 +202,29 @@ function toProjectCard(p) {
 // CERTIFICATIONS
 // ============================================
 async function loadCerts() {
-  const mount = document.getElementById("certs-list");
-  const viewer = document.getElementById("cert-pdf-viewer");
-  const placeholder = document.getElementById("pdf-viewer-placeholder");
+  const mountQA = document.getElementById("certs-list-qa");
+  const mountDev = document.getElementById("certs-list-dev");
 
-  if (!mount) return;
+  if (!mountQA || !mountDev) return;
 
   try {
     const res = await fetch("./data/certifications.json");
     const items = res.ok ? await res.json() : [];
 
     if (Array.isArray(items) && items.length) {
-      renderCerts(mount, items, viewer, placeholder);
+      // Filter items by category (assuming 'category' field: 'qa' or 'dev')
+      const qaItems = items.filter((item) => item.category === "qa");
+      const devItems = items.filter((item) => item.category === "dev");
 
-      const firstCert = items[0];
-      if (firstCert?.pdf && viewer && placeholder) {
-        loadCertPdf(firstCert.pdf, viewer, placeholder);
-        mount.querySelector(".cert-item")?.classList.add("active");
-      }
+      renderCerts(mountQA, qaItems);
+      renderCerts(mountDev, devItems);
     } else {
-      mount.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No certifications available yet.</li>';
+      mountQA.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No QA certifications available yet.</li>';
+      mountDev.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">No Development certifications available yet.</li>';
     }
   } catch {
-    mount.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load certifications.</li>';
+    mountQA.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load QA certifications.</li>';
+    mountDev.innerHTML = '<li style="padding:20px;text-align:center;color:var(--text-muted);">Failed to load Development certifications.</li>';
   }
 }
 
@@ -244,11 +244,13 @@ function toCertCard(c) {
           <h4>${title} · ${issuer}${date}</h4>
         </div>
       </div>
-      <div class="cert-arrow" aria-hidden="true">→</div>
+      <div class="cert-right">
+        <span class="cert-view-icon" aria-hidden="true">🔗</span>
+      </div>
     </li>`;
 }
 
-function renderCerts(mount, items, viewer, placeholder) {
+function renderCerts(mount, items) {
   mount.innerHTML = items.map(toCertCard).join("");
 
   mount.querySelectorAll(".cert-item").forEach((item, idx) => {
@@ -258,10 +260,8 @@ function renderCerts(mount, items, viewer, placeholder) {
     item.setAttribute("aria-label", `View ${items[idx]?.name || "certificate"}`);
 
     const handleClick = () => {
-      mount.querySelectorAll(".cert-item").forEach((i) => i.classList.remove("active"));
-      item.classList.add("active");
-      if (pdf && viewer && placeholder) {
-        loadCertPdf(pdf, viewer, placeholder);
+      if (pdf) {
+        openPdfModal(pdf);
       }
     };
 
@@ -275,9 +275,26 @@ function renderCerts(mount, items, viewer, placeholder) {
   });
 }
 
-function loadCertPdf(url, viewer, placeholder) {
-  if (!viewer || !placeholder) return;
-  viewer.src = url;
-  viewer.classList.add("active");
-  placeholder.classList.add("hidden");
+function openPdfModal(pdfUrl) {
+  const modal = document.getElementById("pdf-modal");
+  const iframe = document.getElementById("pdf-iframe");
+  const closeBtn = document.getElementById("pdf-modal-close");
+
+  if (modal && iframe) {
+    iframe.src = pdfUrl;
+    modal.classList.add("show");
+
+    const closeModal = () => {
+      modal.classList.remove("show");
+      iframe.src = "";
+    };
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeModal();
+    });
+  }
 }

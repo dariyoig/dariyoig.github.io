@@ -3,6 +3,7 @@
     "name": "Technology Fundamentals",
     "issuer": "SoftUni",
     "date": "2018",
+    "category": "dev",
     "pdf": "./certs/Technology Fundamentals - September 2018 - Certificate.pdf",
     "thumb": "./images/sa.png"
   },
@@ -10,6 +11,7 @@
     "name": "JS Fundamentals",
     "issuer": "SoftUni",
     "date": "2019",
+    "category": "dev",
     "pdf": "./certs/JS Fundamentals - January 2019 - Certificate.pdf",
     "thumb": "./images/sa.png"
   },
@@ -17,6 +19,7 @@
     "name": "Quality Assurance Engineer",
     "issuer": "Skillo",
     "date": "2022",
+    "category": "qa",
     "pdf": "./certs/QA-Skillo.pdf",
     "thumb": "./images/sk.png"
   }
