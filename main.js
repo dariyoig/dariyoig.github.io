@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initBackToTop();
   loadProjects();
   loadCerts();
+  initNavScroll();
+  initAvatarReload(); // Add this
 
   window.addEventListener("resize", debounce(syncHeroNavHeight, 150));
 });
@@ -296,5 +298,31 @@ function openPdfModal(pdfUrl) {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") closeModal();
     });
+  }
+}
+
+// ============================================
+// NAV SCROLL WITHOUT URL CHANGE
+// ============================================
+function initNavScroll() {
+  document.querySelectorAll(".nav-list-vertical a, .nav-overlay-list a").forEach((a) => {
+    a.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = a.getAttribute("href");
+      const target = document.querySelector(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+}
+
+// ============================================
+// AVATAR RELOAD
+// ============================================
+function initAvatarReload() {
+  const avatar = document.querySelector(".avatar");
+  if (avatar) {
+    avatar.addEventListener("click", () => location.reload());
   }
 }

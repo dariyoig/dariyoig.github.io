@@ -129,6 +129,7 @@ svg {
   object-position: center 30%;
   filter: brightness(0.76) contrast(1.05);
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer; /* Indicate clickable */
 }
 
 .hero h1 {
@@ -185,42 +186,40 @@ svg {
 
 .nav-list-vertical li {
   border-bottom: 1px solid rgba(200, 200, 200, 0.15); /* Thinner border */
-  padding: 0 60px; /* Reduced padding */
-}
-
-.nav-list-vertical li:first-child {
-  border-top: none;
-}
-
-.nav-list-vertical li:last-child {
-  border-bottom: 1px solid rgba(200, 200, 200, 0.15);
+  padding: 0; /* Remove padding from li */
+  cursor: pointer; /* Indicate clickable */
+  transition: background 0.3s ease; /* Add transition for hover */
 }
 
 .nav-list-vertical a {
-  display: inline-block;
-  width: auto;
-  margin: 0 auto;
+  display: block; /* Make link fill the entire li */
+  width: 100%; /* Ensure full width */
+  margin: 0;
   color: #d0d0d0;
   text-decoration: none;
   font-size: 14px; /* Reduced from 15px */
   font-weight: 400;
-  padding: 8px 0; /* Reduced padding */
+  padding: 8px 60px; /* Move horizontal padding here */
   text-align: center;
   position: relative;
   transition: color 0.3s ease;
 }
 
-.nav-list-vertical a::after {
+.nav-list-vertical a span {
+  position: relative;
+}
+
+.nav-list-vertical a span::after {
   content: "";
   position: absolute;
-  bottom: 6px; /* Adjusted */
+  bottom: -2px; /* Position just below the text */
   left: 0;
   width: 100%;
-  height: 2px; /* Slightly enlarged */
+  height: 1px; /* Thinner */
   background: var(--accent-hover); /* white underline */
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s ease;
+  transition: transform 0.5s ease; /* Slower */
 }
 
 .nav-list-vertical a:hover,
@@ -228,8 +227,16 @@ svg {
   color: var(--accent-hover); /* white on hover */
 }
 
-.nav-list-vertical a:hover::after,
-.nav-list-vertical a:focus::after {
+.nav-list-vertical li:hover a {
+  color: var(--accent-hover); /* Change text color on row hover */
+}
+
+.nav-list-vertical li:hover a span::after {
+  transform: scaleX(1); /* Apply underline on row hover */
+}
+
+.nav-list-vertical a:hover span::after,
+.nav-list-vertical a:focus span::after {
   transform: scaleX(1);
 }
 
