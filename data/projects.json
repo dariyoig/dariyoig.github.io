@@ -7,10 +7,10 @@
     "image": "./images/thumb_projects_portfolio.png"
   },
   {
-    "title": "Playwright course project",
-    "description": "Project to be finished during the QA Automation course at Skillo.",
+    "title": "Playwright Course Final Project",
+    "description": "Complete automation testing project implementing Playwright with JavaScript. Demonstrates end-to-end testing capabilities, page object model, and real-world test scenarios.",
     "tags": ["JavaScript", "Playwright", "Testing"],
-    "url": "https://github.com/dariyoig/qa-automation-course",
+    "url": "https://github.com/dariyoig/skillo-automation-project",
     "image": "./images/thumb_project_playwrightCourse.jfif"
   }
 ]
