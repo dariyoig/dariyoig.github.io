@@ -22,5 +22,61 @@
     "category": "qa",
     "pdf": "./certs/QA-Skillo.pdf",
     "thumb": "./images/sk.png"
+  },
+  {
+    "name": "Automation QA Academy",
+    "issuer": "Skillo",
+    "date": "2025",
+    "category": "qa",
+    "pdf": "./certs/Skillo - Automation QA Academy.pdf",
+    "thumb": "./images/sk.png"
+  },
+  {
+    "name": "Software Technologies",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "dev",
+    "pdf": "./certs/Software Technologies - January 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "QA Fundamentals and Manual Testing",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "qa",
+    "pdf": "./certs/QA Fundamentals and Manual Testing - February 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "Programming Fundamentals and Unit Testing",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "dev",
+    "pdf": "./certs/Programming Fundamentals and Unit Testing - September 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "Front-End Testing Technologies",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "qa",
+    "pdf": "./certs/Front-End Technologies Basics - September 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "Front-End Test Automation",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "qa",
+    "pdf": "./certs/Front-End Test Automation - October 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
+  },
+  {
+    "name": "Programming Advanced for QA",
+    "issuer": "SoftUni",
+    "date": "2025",
+    "category": "dev",
+    "pdf": "./certs/Programming Advanced for QA - November 2025 - Certificate.pdf",
+    "thumb": "./images/sa.png"
   }
 ]
